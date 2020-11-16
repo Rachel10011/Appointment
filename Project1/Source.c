@@ -3,6 +3,6 @@
 //Group members:
 	//Thi Huong Tra Le
 	//Dominic Pham
-	//Nguyen Le Minh
+	//Le Minh Nguyen
 
 #include "Features.h"

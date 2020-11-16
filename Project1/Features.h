@@ -3,7 +3,7 @@
 //Group members:
 	//Thi Huong Tra Le
 	//Dominic Pham
-	//Nguyen Le Minh
+	//Le Minh Nguyen
 
 #pragma once
 #include <stdio.h>
