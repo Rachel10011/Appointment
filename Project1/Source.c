@@ -5,4 +5,16 @@
 	//Dominic Pham
 	//Le Minh Nguyen
 
+#define _CRT_SECURE_NO_WARNINGS
 #include "Features.h"
+#include <string.h>
+
+int main(void)
+{
+	//FILE* fp;
+	//fp = fopen("appointment.txt", "w");
+
+	APPOINTMENT newAppt;
+	getInfo(newAppt);
+
+}

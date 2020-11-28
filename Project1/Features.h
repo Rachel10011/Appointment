@@ -5,12 +5,35 @@
 	//Dominic Pham
 	//Le Minh Nguyen
 
+#define _CRT_SECURE_NO_WARNINGS
 #pragma once
 #include <stdio.h>
+#include <stdbool.h>
+#define MAX_TIME_SIZE 6
+
+typedef struct appointment
+{
+	int date;
+	int month;
+	int year;
+	char* startTime;
+	char* finishTime;
+	char* apptName;
+	char* location;
+	char* body;
+}APPOINTMENT, * PAPPOINTMENT;
+
+typedef struct listappointment
+{
+	PAPPOINTMENT appt;
+	struct listappointment* nextappt;
+}LISTAPPT, * PLISTAPPT;
+
 
 //Required features:
-void addNewAppt();
-void deleteExistingAppt();
+void getInfo(APPOINTMENT);
+void addNewAppt(PLISTAPPT, APPOINTMENT);
+void deleteExistingAppt(PLISTAPPT, APPOINTMENT);
 void updateExistingAppt();
 void displaySingleAppt();
 void displayRangeAppt();
