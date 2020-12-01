@@ -11,10 +11,58 @@
 
 int main(void)
 {
-	//FILE* fp;
-	//fp = fopen("appointment.txt", "w");
-
+	PAPPOINTMENT apptList[MAXAPPT];
 	APPOINTMENT newAppt;
-	getInfo(newAppt);
+	bool repeat = true;
+	char selection;
+	int size = 0;
+	while (repeat)
+	{
+		menu();
+		selection = getUserInput("Enter here: ");
 
+		switch (selection)
+		{
+		case (1):
+			newAppt = createAppt();
+			addNewAppt(apptList, copyNewAppt(newAppt), &size);
+			continue;
+		case (2):
+			deleteExistingAppt(apptList, &size);
+			continue;
+	/*	case ('3'):
+
+			updateExistingAppt();
+			continue;
+		case ('4'):
+			displaySingleAppt();
+			continue;
+		case ('5'):
+			displayRangeAppt();
+			continue;
+
+		case ('6'):
+
+			displayAllAppt();
+			continue;
+		case ('7'):
+
+			searchForAppt();
+			continue;	*/
+		case (8):
+			repeat = false;
+			break;
+		default:
+			puts("Invalid input");
+			continue;
+		}
+	}
+	puts("\nThank you!\n");
+	freeAppt(apptList,&size);
+
+	return 0;
 }
+
+
+	
+

@@ -10,14 +10,17 @@
 #include <stdio.h>
 #include <stdbool.h>
 #define MAX_TIME_SIZE 6
+#define MAXTIME 11 
+#define MAXNAME 51	  
+#define MAXBODY 201
+#define MAXAPPT 48
 
 typedef struct appointment
 {
-	int date;
-	int month;
-	int year;
-	char* startTime;
-	char* finishTime;
+	int startHour;
+	int startMinutes;
+	int endHour;
+	int endMinutes;
 	char* apptName;
 	char* location;
 	char* body;
@@ -31,9 +34,19 @@ typedef struct listappointment
 
 
 //Required features:
-void getInfo(APPOINTMENT);
-void addNewAppt(PLISTAPPT, APPOINTMENT);
-void deleteExistingAppt(PLISTAPPT, APPOINTMENT);
+void menu(void);
+
+int getUserInput(char []);
+int inputTime(int, int);
+PAPPOINTMENT initialAppointment();
+APPOINTMENT createAppt();
+PAPPOINTMENT copyNewAppt(APPOINTMENT);
+void addApptToList(PAPPOINTMENT, PAPPOINTMENT, int);
+void sortAppt(PAPPOINTMENT[], int);
+void freeAppt(PAPPOINTMENT[], int*);
+void addNewAppt(PAPPOINTMENT[], PAPPOINTMENT, int*);
+void deleteExistingAppt(PAPPOINTMENT, int*);
+
 void updateExistingAppt();
 void displaySingleAppt();
 void displayRangeAppt();
