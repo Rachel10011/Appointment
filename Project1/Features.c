@@ -5,6 +5,8 @@
 	//Dominic Pham
 	//Le Minh Nguyen
 
+#include <stdio.h>
+#include <stdbool.h>
 #include "Features.h"
 
 void menu(void)
@@ -266,7 +268,6 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 {
 	extern struct PLISTAPPT *appList;
-	int* size;
 	printf("The List of all appointment today");
 	if(apptList == NULL)
 	{
@@ -281,3 +282,4 @@ void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 		}
 	}
 }
+

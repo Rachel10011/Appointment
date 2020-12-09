@@ -139,8 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="displaySingleAppt.c" />
     <ClCompile Include="Features.c" />
+    <ClCompile Include="searchForAppt.c" />
     <ClCompile Include="Source.c" />
+    <ClCompile Include="updatingExistingAppt.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Features.h" />

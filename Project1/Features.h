@@ -47,13 +47,13 @@ void sortAppt(PAPPOINTMENT[], int);
 void disposeAppt(PAPPOINTMENT[], int*);
 void addNewAppt(PAPPOINTMENT[], PAPPOINTMENT, int*);
 void deleteExistingAppt(PAPPOINTMENT, int*);
+void updateExistingAppt(PAPPOINTMENT[], int*);
+void displaySingleAppt(PAPPOINTMENT[],int*);
+void searchForAppt(PAPPOINTMENT[], int*);
 
-
-void updateExistingAppt();
-void displaySingleAppt();
 void displayRangeAppt();
 void displayAllAppt();
-void searchForAppt();
+
 
 //Friendly/easy to use UI (or menu system) --- nice and clean design?
 //save accumulated data to disk   ---- save to file?
