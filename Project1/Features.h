@@ -36,6 +36,7 @@ typedef struct listappointment
 //Required features:
 void menu(void);
 
+
 int getUserInput(char []);
 int inputTime(int, int);
 PAPPOINTMENT initialAppointment();
@@ -43,9 +44,10 @@ APPOINTMENT createAppt();
 PAPPOINTMENT copyNewAppt(APPOINTMENT);
 void addApptToList(PAPPOINTMENT, PAPPOINTMENT, int);
 void sortAppt(PAPPOINTMENT[], int);
-void freeAppt(PAPPOINTMENT[], int*);
+void disposeAppt(PAPPOINTMENT[], int*);
 void addNewAppt(PAPPOINTMENT[], PAPPOINTMENT, int*);
 void deleteExistingAppt(PAPPOINTMENT, int*);
+
 
 void updateExistingAppt();
 void displaySingleAppt();

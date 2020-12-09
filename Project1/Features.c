@@ -5,7 +5,6 @@
 	//Dominic Pham
 	//Le Minh Nguyen
 
-  //200 words max for the appointment's description
 #include "Features.h"
 
 void menu(void)
@@ -49,15 +48,15 @@ PAPPOINTMENT initialAppointment()
 	PAPPOINTMENT appt = (PAPPOINTMENT)malloc(sizeof(APPOINTMENT));
 	if (!appt)
 	{
-		fprintf(stderr, "Error allocating memory");
+		fprintf(stderr, "Error allocating memory!\n");
 	}
 	appt->startHour = 0;
 	appt->startMinutes = 0;
 	appt->endMinutes = 0;
 	appt->endHour = 0;
-	appt->apptName= " ";
-	appt->body= " ";
-	appt->location= " ";
+	appt->apptName= NULL;
+	appt->body= NULL;
+	appt->location= NULL;
 	return appt;
 }
 
@@ -67,12 +66,12 @@ int inputTime(int min, int max)
 	char buffer[MAXTIME];
 
 	do {
-		printf("Enter a number between %d and %d: ", min, max);
+		printf("Please enter a number between %d and %d: ", min, max);
 		fgets(buffer, MAXTIME, stdin);
-		time = atoi(buffer);    //conert char to int
+		time = atoi(buffer);										 //conert char to int
 		if (time<min || time>max)
-			puts("Invalid input! Try again.");
-	} while (time<min || time>max);	//if the user's input is not inthe range of time, ask for another input
+			puts("Invalid input! Please try again.");
+	} while (time<min || time>max);									//if the user's input is not inthe range of time, ask for another input
 
 	return time;		
 }
@@ -83,12 +82,13 @@ APPOINTMENT createAppt()
 	char name[20];
 	char location[20];
 	char body[100];
+
 	do
 	{
-		puts("Starting time:");
+		puts("Enter starting time:");
 		newAppt.startHour = inputTime(0, 23);		//ask user to enter the hour of the appointment 
 		newAppt.startMinutes = inputTime(0, 59);	//ask for minutes
-		puts("Ending time:");
+		puts("Enter ending time:");
 		newAppt.endHour = inputTime(0, 23);
 		newAppt.endMinutes = inputTime(0, 59);
 	} while (newAppt.startHour > newAppt.endHour || (newAppt.startHour == newAppt.endHour && newAppt.startMinutes > newAppt.endMinutes));
@@ -106,7 +106,7 @@ APPOINTMENT createAppt()
 
 	if (!newAppt.apptName || !newAppt.location || !newAppt.body)
 	{
-		fprintf(stderr, "Error allocating memory");
+		fprintf(stderr, "Error allocating memory!\n");
 		exit(1);
 	}
 
@@ -118,7 +118,6 @@ APPOINTMENT createAppt()
 	newAppt.location[strlen(location)] = '\0';
 	newAppt.body[strlen(body)] = '\0';
 
-
 	return newAppt;
 }
 
@@ -127,7 +126,7 @@ PAPPOINTMENT copyNewAppt(APPOINTMENT newAppt)
 	PAPPOINTMENT pCopyAppt = (PAPPOINTMENT)malloc(sizeof(APPOINTMENT));
 	if (!pCopyAppt)
 	{
-		fprintf(stderr, "Error allocating memory");
+		fprintf(stderr, "Error allocating memory!\n");
 		exit(1);
 	}
 
@@ -191,7 +190,7 @@ void sortAppt(PAPPOINTMENT apptList[], int size)
 	}
 }
 
-void freeAppt(PAPPOINTMENT appt[], int* size)
+void disposeAppt(PAPPOINTMENT appt[], int* size)
 {
 	if ((*size) = 0)
 		return;
@@ -214,7 +213,7 @@ void addNewAppt(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int* size)
 			(appt->startHour) == (apptList[i]->endHour)&&(appt->startMinutes)<(apptList[i]->endMinutes)||
 			(appt->endHour)==(apptList[i]->startHour)&& (appt->endMinutes) >(apptList[i]->startMinutes))
 		{
-			printf("Cannot book\n");
+			printf("\nCannot book. Overlap time range!\n\n");
 			return;
 		}
 		
@@ -226,16 +225,19 @@ void addNewAppt(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int* size)
 	puts("New appointment is added successfully!");
 
 }
-void deleteExistingAppt(PAPPOINTMENT list[], int* size)
+
+void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt by asking user to enter the index(number) of that appt. The numbers will be printed on the screen beside the appointments 
 {
-	if (*size = 0)
+	if (*size == 0)
 	{
 		puts("There is no appointment!\n");
 		return;
 	}
+
 	/*puts("List of current appointment: ");
 	print the current list appoinment so the user can choose easiser
 	*/
+
 	char temp[MAXAPPT];
 	puts("Enter appointment's number that you want to delete:");
 	scanf("%s", &temp);

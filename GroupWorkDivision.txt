@@ -1,0 +1,26 @@
+Each member need to work on 2 requirements from the assignment.
+
+Thi Huong Tra Le
+Set up VS + Azure DevOps + Discord
+Create structures
+Functions:
+int getUserInput(char []);
+int inputTime(int, int);
+PAPPOINTMENT initialAppointment();
+APPOINTMENT createAppt();
+PAPPOINTMENT copyNewAppt(APPOINTMENT);
+void addApptToList(PAPPOINTMENT, PAPPOINTMENT, int);
+void sortAppt(PAPPOINTMENT[], int);
+void disposeAppt(PAPPOINTMENT[], int*);
+void addNewAppt(PAPPOINTMENT[], PAPPOINTMENT, int*);
+void deleteExistingAppt(PAPPOINTMENT, int*);
+
+Dominic Pham
+int menu(void)
+void updateExistingAppt();
+void displaySingleAppt();
+
+Le Minh Nguyen
+create data format on the Source.c file (switch, cases)
+void displayRangeAppt();
+void displayAllAppt();

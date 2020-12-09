@@ -16,20 +16,22 @@ int main(void)
 	bool repeat = true;
 	char selection;
 	int size = 0;
+
+
 	while (repeat)
 	{
 		menu();
-		selection = getUserInput("Enter here: ");
+		selection = getUserInput("Please enter your choice here: ");
 
 		switch (selection)
 		{
 		case (1):
 			newAppt = createAppt();
 			addNewAppt(apptList, copyNewAppt(newAppt), &size);
-			continue;
+			break;
 		case (2):
 			deleteExistingAppt(apptList, &size);
-			continue;
+			break;
 	/*	case ('3'):
 
 			updateExistingAppt();
@@ -56,12 +58,12 @@ int main(void)
 			repeat = false;
 			break;
 		default:
-			puts("Invalid input");
-			continue;
+			puts("Invalid input! Please try again\n");
+			break;
 		}
 	}
-	puts("\nThank you!\n");
-	freeAppt(apptList,&size);
+	puts("\nThank you for using our appointment app!\n");
+	disposeAppt(apptList,&size);
 
 	return 0;
 }
