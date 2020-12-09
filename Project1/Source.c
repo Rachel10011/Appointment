@@ -49,6 +49,9 @@ int main(void)
 
 			searchForAppt();
 			continue;	*/
+		case (6):
+			displayAllAppt(apptList, &size);
+			continue;
 		case (8):
 			repeat = false;
 			break;

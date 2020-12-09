@@ -260,3 +260,22 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)
 
 	printf("Deleting appointment %d completed", num);
 }
+
+void displayAllAppt(PAPPOINTMENT apptList[], int* size)
+{
+	extern struct PLISTAPPT *appList;
+	int* size;
+	printf("The List of all appointment today");
+	if(apptList == NULL)
+	{
+		printf("No appointment today");
+	}
+	while (apptList != NULL)
+	{
+		for (int i = 0; i < *size; i++)
+		{
+			printf("%-*s  %-*s  %-*s  %-*s  %-12s\n", MAXNAME, "Start", MAXNAME, "End", MAXNAME, "Name", MAXNAME, "Location", MAXNAME, "Note");
+			printf("%-*s%-*s  %-*s%-*s  %-*s  %-*s  %-12s\n", MAXNAME, apptList[i]->startHour, MAXNAME, apptList[i]->startMinutes, MAXNAME,apptList[i]->endHour, MAXNAME,apptList[i]->endMinutes, MAXNAME,apptList[i]->apptName, MAXNAME, apptList[i]->location, MAXNAME, apptList[i]->body);
+		}
+	}
+}
