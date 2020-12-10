@@ -14,6 +14,7 @@
 #define MAXNAME 51	  
 #define MAXBODY 201
 #define MAXAPPT 48
+#define MAX_FILENAME 100 
 
 typedef struct appointment
 {
@@ -48,6 +49,8 @@ void disposeAppt(PAPPOINTMENT[], int*);
 void addNewAppt(PAPPOINTMENT[], PAPPOINTMENT, int*);
 void deleteExistingAppt(PAPPOINTMENT, int*);
 
+char askForFileName();
+void saveDataToDisk(APPOINTMENT [], char[]);
 
 void updateExistingAppt();
 void displaySingleAppt();

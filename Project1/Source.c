@@ -15,8 +15,10 @@ int main(void)
 	APPOINTMENT newAppt;
 	bool repeat = true;
 	char selection;
-	int size = 0;
+	char *fileName;
+	int size = 0; 
 
+	fileName = askForFileName();
 
 	while (repeat)
 	{
@@ -59,7 +61,16 @@ int main(void)
 			break;
 		}
 	}
+
+	//saveDataToDisk(apptList, fileName);
+	//fclose(fp);
+	/*if (saveDataToDisk(apptList, fileName))
+		printf("Appointments are updated to file\n");
+	else
+		printf("Error saving data to file\n");
+		
 	puts("\nThank you for using our appointment app!\n");
+	*/
 	disposeAppt(apptList,&size);
 
 	return 0;

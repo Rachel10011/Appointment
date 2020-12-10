@@ -79,9 +79,9 @@ int inputTime(int min, int max)
 APPOINTMENT createAppt()
 {
 	APPOINTMENT newAppt;
-	char name[20];
-	char location[20];
-	char body[100];
+	char name[MAXNAME];
+	char location[MAXNAME];
+	char body[MAXBODY];
 
 	do
 	{
@@ -261,4 +261,27 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 	(*size)--;
 
 	printf("Deleting appointment %d completed", num);
+}
+
+char askForFileName()
+{
+	char fileName[MAX_FILENAME];
+	puts("Please enter name of a file to read/write data: ");
+	scanf("%s", &fileName);
+	getchar();
+	return fileName;
+}
+
+void saveDataToDisk(APPOINTMENT apptList[], char fileName[])
+{
+	FILE* fp = fopen(fileName, "w+");
+	
+	for (int i = 0; i < size(apptList) / sizeof(APPOINTMENT); i++)
+	{
+		fprintf(fp, "%d:%d to %d:%d\n", apptList[i].startHour, apptList[i].startMinutes, apptList[i].endHour, apptList[i].endMinutes);
+		fprintf(fp, "%s\n%s\%s\n\n", apptList[i].apptName, apptList[i].location, apptList[i].body);
+
+	}
+	fclose(fp);
+	printf("\nData is updated to file successfully.\n");
 }
