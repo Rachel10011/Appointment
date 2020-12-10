@@ -35,6 +35,7 @@ typedef struct listappointment
 
 
 //Required features:
+void printIntro();
 void menu(void);
 
 
@@ -54,8 +55,8 @@ void searchForAppt(PAPPOINTMENT[], int*);
 void displayRangeAppt(PAPPOINTMENT[],int*);
 void displayAllAppt(PAPPOINTMENT[],int*);
 
-char askForFileName();
-void saveDataToDisk(APPOINTMENT [], char[]);
+void askForFilePath(char[]);
+void saveDataToDisk(PAPPOINTMENT [],int*, char[]);
 
 //Friendly/easy to use UI (or menu system) --- nice and clean design?
 //save accumulated data to disk   ---- save to file?

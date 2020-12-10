@@ -1,0 +1,5 @@
+5:30 - 6:0 
+Name: doctor
+Location: Kitchener
+Information:Go to clinic at 112 AAA Rd, Kitchener to see doctor and get flu shot. Then go to school after.
+

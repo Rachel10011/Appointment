@@ -11,14 +11,14 @@
 
 int main(void)
 {
-	PAPPOINTMENT apptList[MAXAPPT];
+	PAPPOINTMENT apptList[MAXAPPT] = { 0 };
 	APPOINTMENT newAppt;
 	bool repeat = true;
 	char selection;
-	char *fileName;
+	char fileName[MAX_FILENAME] = { 0 };
 	int size = 0; 
-
-	//fileName = askForFileName();
+	
+	printIntro();
 
 	while (repeat)
 	{
@@ -49,7 +49,11 @@ int main(void)
 		case (6):
 			displayAllAppt(apptList, &size);
 			break;
-		case (8):
+		case(8):
+			askForFilePath(fileName);
+			saveDataToDisk(apptList, &size, fileName);
+			break;
+		case (9):
 			repeat = false;
 			break;
 		default:
@@ -58,7 +62,7 @@ int main(void)
 		}
 	}
 
-	//saveDataToDisk(apptList, fileName);
+
 	//fclose(fp);
 	/*if (saveDataToDisk(apptList, fileName))
 		printf("Appointments are updated to file\n");

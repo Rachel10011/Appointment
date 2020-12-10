@@ -4,10 +4,18 @@
 	//Thi Huong Tra Le
 	//Dominic Pham
 	//Le Minh Nguyen
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdbool.h>
 #include "Features.h"
+
+void printIntro()
+{
+	printf("**********************************************\n");
+	printf("*     Welcome to our appointment system      *\n");
+	printf("**********************************************\n\n");
+}
 
 void menu(void)
 {
@@ -20,7 +28,8 @@ void menu(void)
 	puts("|   5) Display the range appointment           |");
 	puts("|   6) Display all appointment                 |");
 	puts("|   7) Search for appointment                  |");
-	puts("|   8) Quit                                    |");
+	puts("|   8) Save appointment to file                |");
+	puts("|   9) Quit                                    |");
 	puts("*----------------------------------------------*");
 
 }
@@ -86,6 +95,8 @@ APPOINTMENT createAppt()
 	char body[100];
 	bool repeat = true;
 
+	puts("To book time for your appointment. Please follow the instruction below.\nYou will need to enter hour and minutes separately.");
+
 	do
 	{
 		puts("Starting time:");
@@ -95,17 +106,17 @@ APPOINTMENT createAppt()
 		newAppt.endHour = inputTime(0, 23);
 		newAppt.endMinutes = inputTime(0, 59);
 		if ((newAppt.startHour > newAppt.endHour || (newAppt.startHour == newAppt.endHour && newAppt.startMinutes > newAppt.endMinutes)))
-			printf("\nStarting time must be smaller than ending time. Please enter again.\n");
+			printf("\nStarting time must be smaller than ending time. Please enter again.\n\n");
 		else
 			repeat = false;
 
 	} while (repeat);
 
-	puts("Enter appoinments name: ");
+	printf("Enter appoinments name: ");
 	gets(name);
-	puts("Enter location: ");
+	printf("Enter location: ");
 	gets(location);
-	puts("Enter appointment's description: ");
+	printf("Enter appointment's description: ");
 	gets(body); 
 
 	newAppt.apptName = (char*)malloc(strlen(name)+1);
@@ -327,4 +338,48 @@ void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 
 	
 	
+}
+
+void askForFilePath(char fileName[])
+{
+	FILE* fp;
+	bool repeat;
+	do
+	{
+		printf("Please enter a full path of the file you want to access/create: ");
+		scanf("%s", fileName);
+		getchar();
+
+		//fp = fopen(fileName, "r+");
+		if (!fopen(fileName, "r+"))
+		{
+			//fp = fopen(fileName, "w+");
+			printf("Entered file name is unaccepted. Please try again.\n");
+			repeat = true;
+		}
+		else
+			repeat = false;
+	} while (repeat);
+
+}
+
+void saveDataToDisk(PAPPOINTMENT apptList[], int*size, char fileName[])
+{
+	if (*size == 0)
+	{
+		printf("There is no appointment to save to data.\n");
+	}
+	else
+	{
+		FILE* fp;
+		fp = fopen(fileName, "w+");
+
+		for (int i = 0; i < *size; i++)
+		{
+			fprintf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+		}
+
+		fclose(fp);
+		printf("\nAppointments are updated to file successfully\n");
+	}
 }
