@@ -21,6 +21,15 @@
     <ClCompile Include="Features.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="displaySingleAppt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="updatingExistingAppt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="searchForAppt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Features.h">

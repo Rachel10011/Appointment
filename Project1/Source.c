@@ -34,25 +34,21 @@ int main(void)
 		case (2):
 			deleteExistingAppt(apptList, &size);
 			break;
-	/*	case ('3'):
-
-			updateExistingAppt();
+		case (3):
+			updateExistingAppt(apptList, &size);
 			continue;
-		case ('4'):
-			displaySingleAppt();
+		case (4):
+			displaySingleAppt(apptList,&size);
 			continue;
-		case ('5'):
-			displayRangeAppt();
-			continue;
-
-		case ('6'):
-
-			displayAllAppt();
-			continue;
-		case ('7'):
-
-			searchForAppt();
-			continue;	*/
+		case (5):
+			displayRangeAppt(apptList,&size);
+			break;
+		case (7):
+			searchForAppt(apptList,&size);
+			continue;	
+		case (6):
+			displayAllAppt(apptList, &size);
+			break;
 		case (8):
 			repeat = false;
 			break;

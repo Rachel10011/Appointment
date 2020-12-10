@@ -17,8 +17,9 @@ void deleteExistingAppt(PAPPOINTMENT, int*);
 
 Dominic Pham
 int menu(void)
-void updateExistingAppt();
-void displaySingleAppt();
+void updateExistingAppt(PAPPOINTMENT[], int*); 
+void displaySingleAppt(PAPPOINTMENT[], int*);
+void searchForAppt(PAPPOINTMENT[], int*);
 
 Le Minh Nguyen
 create data format on the Source.c file (switch, cases)

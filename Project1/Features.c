@@ -5,6 +5,8 @@
 	//Dominic Pham
 	//Le Minh Nguyen
 
+#include <stdio.h>
+#include <stdbool.h>
 #include "Features.h"
 
 void menu(void)
@@ -30,7 +32,7 @@ int getUserInput(char message[])
 	do
 	{
 		printf("%s", message);
-		scannedInput = scanf("%d", &input);
+		scannedInput = scanf_s("%d", &input);
 		char buf;
 		while ((buf = getchar()) != '\n' && input != EOF);
 	}while (scannedInput != 1);
@@ -79,9 +81,9 @@ int inputTime(int min, int max)
 APPOINTMENT createAppt()
 {
 	APPOINTMENT newAppt;
-	char name[MAXNAME];
-	char location[MAXNAME];
-	char body[MAXBODY];
+	char name[20];
+	char location[20];
+	char body[100];
 
 	do
 	{
@@ -240,7 +242,7 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 
 	char temp[MAXAPPT];
 	puts("Enter appointment's number that you want to delete:");
-	scanf("%s", &temp);
+	scanf_s("%s", &temp);
 
 	int num = atoi(temp);
 	if (num >= *size)
@@ -263,25 +265,62 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 	printf("Deleting appointment %d completed", num);
 }
 
-char askForFileName()
+void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 {
-	char fileName[MAX_FILENAME];
-	puts("Please enter name of a file to read/write data: ");
-	scanf("%s", &fileName);
-	getchar();
-	return fileName;
+	printf("The List of all appointment today\n");
+	if(apptList == NULL)
+	{
+		printf("No appointment today");
+	}
+	while (apptList != NULL)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			printf("%s  %s  %s  %s  %s\n", "Start", "End", "Name", "Location",  "Note");
+			printf("%d:%d  %d:%d  %s  %s  %s\n", apptList[i]->startHour, apptList[i]->startMinutes,apptList[i]->endHour, apptList[i]->endMinutes,MAXNAME, apptList[i]->apptName,MAXNAME, apptList[i]->location,MAXNAME,  apptList[i]->body);
+		}
+	}
 }
 
-void saveDataToDisk(APPOINTMENT apptList[], char fileName[])
+void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 {
-	FILE* fp = fopen(fileName, "w+");
-	
-	for (int i = 0; i < size(apptList) / sizeof(APPOINTMENT); i++)
+	int j;
+	printf("This is all appointment for today");
+	if (apptList == NULL)
 	{
-		fprintf(fp, "%d:%d to %d:%d\n", apptList[i].startHour, apptList[i].startMinutes, apptList[i].endHour, apptList[i].endMinutes);
-		fprintf(fp, "%s\n%s\%s\n\n", apptList[i].apptName, apptList[i].location, apptList[i].body);
-
+		printf("No appointment today");
 	}
-	fclose(fp);
-	printf("\nData is updated to file successfully.\n");
+	while (apptList != NULL)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			printf("%s      %s      %s        %s        %s\n", "Start", "End", "Name", "Location", "Note");
+			printf("%d:%d  %d:%d  %s  %s  %s\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes,MAXNAME, apptList[i]->apptName,MAXNAME, apptList[i]->location,MAXNAME, apptList[i]->body); 
+			/* Minh Le: Can u fix it for me the code printf and also in line 280*/
+			printf("Enter the number of the appointment you want to check the range:");
+			scanf_s("%d", &j);
+			int rangemin, rangehour;
+			rangemin = apptList[j]->endMinutes - apptList[j]->startMinutes;
+			if (rangemin < 0)
+			{
+				int endhour = apptList[j]->endHour - 1;
+				int endminute = apptList[j]->endMinutes + 60;
+				int rangeMin = endminute - apptList[j]->startMinutes;
+				rangehour = endhour - apptList[j]->startHour;
+				if (rangehour < 0)
+				{
+					printf("Invalid Appointment");
+				}
+				else
+				{
+					printf("The range of the appointment : %d:%d", rangehour, rangeMin);
+				}
+			}
+			rangehour = apptList[j]->endHour - apptList[j]->startHour;
+			printf("The range of the appointment : %d:%d", rangehour, rangemin);
+		}
+	}
+
+	
+	
 }
