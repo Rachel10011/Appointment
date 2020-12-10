@@ -18,7 +18,7 @@ int main(void)
 	char *fileName;
 	int size = 0; 
 
-	fileName = askForFileName();
+	//fileName = askForFileName();
 
 	while (repeat)
 	{
