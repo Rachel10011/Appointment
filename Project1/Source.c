@@ -38,20 +38,15 @@ int main(void)
 		case (4):
 			displaySingleAppt(apptList,&size);
 			continue;
-		//case ('5'):
-		//	displayRangeAppt();
-		//	continue;
-
-		//case ('6'):
-
-		//	displayAllAppt();
-		//	continue;
+		case (5):
+			displayRangeAppt(apptList,&size);
+			break;
 		case (7):
 			searchForAppt(apptList,&size);
 			continue;	
 		case (6):
 			displayAllAppt(apptList, &size);
-			continue;
+			break;
 		case (8):
 			repeat = false;
 			break;

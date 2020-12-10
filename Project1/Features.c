@@ -32,7 +32,7 @@ int getUserInput(char message[])
 	do
 	{
 		printf("%s", message);
-		scannedInput = scanf("%d", &input);
+		scannedInput = scanf_s("%d", &input);
 		char buf;
 		while ((buf = getchar()) != '\n' && input != EOF);
 	}while (scannedInput != 1);
@@ -242,7 +242,7 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 
 	char temp[MAXAPPT];
 	puts("Enter appointment's number that you want to delete:");
-	scanf("%s", &temp);
+	scanf_s("%s", &temp);
 
 	int num = atoi(temp);
 	if (num >= *size)
@@ -267,19 +267,59 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 
 void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 {
-	extern struct PLISTAPPT *appList;
-	printf("The List of all appointment today");
+	printf("The List of all appointment today\n");
 	if(apptList == NULL)
 	{
 		printf("No appointment today");
 	}
 	while (apptList != NULL)
 	{
-		for (int i = 0; i < *size; i++)
+		for (int i = 0; i < size; i++)
 		{
-			printf("%-*s  %-*s  %-*s  %-*s  %-12s\n", MAXNAME, "Start", MAXNAME, "End", MAXNAME, "Name", MAXNAME, "Location", MAXNAME, "Note");
-			printf("%-*s%-*s  %-*s%-*s  %-*s  %-*s  %-12s\n", MAXNAME, apptList[i]->startHour, MAXNAME, apptList[i]->startMinutes, MAXNAME,apptList[i]->endHour, MAXNAME,apptList[i]->endMinutes, MAXNAME,apptList[i]->apptName, MAXNAME, apptList[i]->location, MAXNAME, apptList[i]->body);
+			printf("%s  %s  %s  %s  %s\n", "Start", "End", "Name", "Location",  "Note");
+			printf("%d:%d  %d:%d  %s  %s  %s\n", apptList[i]->startHour, apptList[i]->startMinutes,apptList[i]->endHour, apptList[i]->endMinutes,MAXNAME, apptList[i]->apptName,MAXNAME, apptList[i]->location,MAXNAME,  apptList[i]->body);
 		}
 	}
 }
 
+void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
+{
+	int j;
+	printf("This is all appointment for today");
+	if (apptList == NULL)
+	{
+		printf("No appointment today");
+	}
+	while (apptList != NULL)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			printf("%s      %s      %s        %s        %s\n", "Start", "End", "Name", "Location", "Note");
+			printf("%d:%d  %d:%d  %s  %s  %s\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes,MAXNAME, apptList[i]->apptName,MAXNAME, apptList[i]->location,MAXNAME, apptList[i]->body);
+			printf("Enter the number of the appointment you want to check the range:");
+			scanf_s("%d", &j);
+			int rangemin, rangehour;
+			rangemin = apptList[j]->endMinutes - apptList[j]->startMinutes;
+			if (rangemin < 0)
+			{
+				int endhour = apptList[j]->endHour - 1;
+				int endminute = apptList[j]->endMinutes + 60;
+				int rangeMin = endminute - apptList[j]->startMinutes;
+				rangehour = endhour - apptList[j]->startHour;
+				if (rangehour < 0)
+				{
+					printf("Invalid Appointment");
+				}
+				else
+				{
+						printf("The range of the appointment : %d:%d", rangehour, rangeMin);
+				}
+			}
+			rangehour = apptList[j]->endHour - apptList[j]->startHour;
+			printf("The range of the appointment : %d:%d", rangehour, rangemin);
+		}
+	}
+
+	
+	
+}

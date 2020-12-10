@@ -10,7 +10,7 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 	char body_Update[MAXBODY];
 
 	printf("Enter the name of the appointment you wish to update: ");
-	(void)scanf("%s", &ApptName);
+	(void)scanf_s("%s", &ApptName);
 	for (int i = 0; i < size; i++)
 	{
 		if (strcmp(ApptName, apptList[i]->apptName) == 0) {

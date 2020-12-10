@@ -50,9 +50,8 @@ void deleteExistingAppt(PAPPOINTMENT, int*);
 void updateExistingAppt(PAPPOINTMENT[], int*);
 void displaySingleAppt(PAPPOINTMENT[],int*);
 void searchForAppt(PAPPOINTMENT[], int*);
-
-void displayRangeAppt();
-void displayAllAppt();
+void displayRangeAppt(PAPPOINTMENT[],int*);
+void displayAllAppt(PAPPOINTMENT[],int*);
 
 
 //Friendly/easy to use UI (or menu system) --- nice and clean design?
