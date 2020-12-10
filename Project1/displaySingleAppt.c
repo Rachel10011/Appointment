@@ -18,4 +18,6 @@ void displaySingleAppt(PAPPOINTMENT apptList[], int* size) {
 			printf("Description: %s\n", apptList[i]->body);
 		}
 	}
-}
+}/* Minh Le: I think you should check the apptlist if it NULL before the for loop 
+ And you should display all the appt to the user to choose cuz they maybe forget thier name appointment
+ */

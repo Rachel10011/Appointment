@@ -295,7 +295,8 @@ void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 		for (int i = 0; i < size; i++)
 		{
 			printf("%s      %s      %s        %s        %s\n", "Start", "End", "Name", "Location", "Note");
-			printf("%d:%d  %d:%d  %s  %s  %s\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes,MAXNAME, apptList[i]->apptName,MAXNAME, apptList[i]->location,MAXNAME, apptList[i]->body);
+			printf("%d:%d  %d:%d  %s  %s  %s\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes,MAXNAME, apptList[i]->apptName,MAXNAME, apptList[i]->location,MAXNAME, apptList[i]->body); 
+			/* Minh Le: Can u fix it for me the code printf and also in line 280*/
 			printf("Enter the number of the appointment you want to check the range:");
 			scanf_s("%d", &j);
 			int rangemin, rangehour;
@@ -312,7 +313,7 @@ void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 				}
 				else
 				{
-						printf("The range of the appointment : %d:%d", rangehour, rangeMin);
+					printf("The range of the appointment : %d:%d", rangehour, rangeMin);
 				}
 			}
 			rangehour = apptList[j]->endHour - apptList[j]->startHour;
