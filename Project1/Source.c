@@ -17,7 +17,6 @@ int main(void)
 	char selection;
 	char fileName[MAX_FILENAME] = { 0 };
 	int size = 0; 
-	char file_Name[MAX_FILENAME] = { 0 };
 	
 	printIntro();
 
@@ -55,7 +54,8 @@ int main(void)
 			saveDataToDisk(apptList, &size, fileName);
 			break;
 		case (9):
-			loadDataFromDisk(apptList, &size, file_Name);
+			askForFilePath(fileName);
+			loadDataFromDisk(apptList, &size, fileName);
 			break;
 		case (10):
 			repeat = false;

@@ -288,7 +288,7 @@ void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 	printf("The List of all appointment today\n");
 	if(*size == 0)
 	{
-		printf("No appointment today");
+		printf("No appointment today\n");
 		return;
 	}
 	for (int i = 0; i < *size; i++)
@@ -385,43 +385,21 @@ void saveDataToDisk(PAPPOINTMENT apptList[], int*size, char fileName[])
 
 void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 {
-	FILE* fp;
-	turnback:
-	printf("Enter name of a file you wish to load:\n");
-	gets(file_Name);
+	FILE* fp;	
 	if ((fp = fopen(file_Name, "r")) == NULL)
 	{
-		char selection;
-		printf("\nThere is no file with that name\n");
-		turnback1:
-		puts("*--------------------------------*");
-		puts("|   Do you Want to input again   |");
-		puts("|   1. Input again               |");
-		puts("|   2. Exit to the menu          |");
-		puts("*--------------------------------*");
-		selection = getUserInput("Please enter your choice here: ");
-		switch (selection)
-		{
-		case (1):
-			goto turnback;
-			break;
-		case (2):
-			break;
-		default:
-			puts("Invalid input! Please try again\n");
-			goto turnback1;
-			break;
-		}
+		printf("There is no data to load\n");
 	}
 	else 
 	{
-		for (int i = 0; i < *size; i++) 
+		for (int i = 0; i < *size; i++)
 		{
-			fgets("%d%d%d%d%s%s%s", &apptList[i]->startHour, &apptList[i]->startMinutes, &apptList[i]->endHour, &apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body,fp);
-			printf("Here is the Data in your file\n");
-			printf("%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+			PAPPOINTMENT appointment;
+			fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment->startHour, &appointment->startMinutes, &appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
+			apptList[i] = appointment;
 		}
-		fclose(fp);
-		printf("\nLoad Data From File Successfully\n");
 	}
+		
+	fclose(fp);
+	printf("\nLoad Data From File Successfully\n");
 }
