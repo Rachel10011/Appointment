@@ -46,7 +46,11 @@ int getUserInput(char message[])
 		char buf;
 		while ((buf = getchar()) != '\n' && input != EOF);
 		if (scannedInput != 1)
-			printf("Only numebr is accepted. Try again.\n");
+		{
+			printf("Only numebr is accepted. Try again\n");
+			printf("%s", message);
+		}
+
 	}while (scannedInput != 1);
 
 	return input;

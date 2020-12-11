@@ -5,19 +5,25 @@
 void displaySingleAppt(PAPPOINTMENT apptList[], int* size) {
 
 	char ApptName[MAXNAME];
-	int input = getUserInput("Enter the number of the appointment you wish to display: ");
 
-	if (size != NULL) {
-		for (int i = 0; i < size; i++)
+	if (*size != 0) {
+		bool repeat = true;
+		do
 		{
-			if (strcmp(ApptName, apptList[i]->apptName) == 0) {
-				printf("Appointment name: %s\n", apptList[i]->apptName);
-				printf("Location: %s\n", apptList[i]->location);
-				printf("Starts at %d:%d\n", apptList[i]->startHour, apptList[i]->startMinutes);
-				printf("Ends at %d:%d\n", apptList[i]->endHour, apptList[i]->endMinutes);
-				printf("Description: %s\n", apptList[i]->body);
+			int input = getUserInput("Enter the number of the appointment you wish to display: ");
+			if (input >= 0 && input < size) {
+				printf("[%d]\t%d:%d-%d:%d\n", input, apptList[input]->startHour, apptList[input]->startMinutes, apptList[input]->endHour, apptList[input]->endMinutes);
+				printf("    \tName: %s\n", apptList[input]->apptName);
+				printf("    \tLocation: %s\n", apptList[input]->location);
+				printf("    \tDescription: %s\n", apptList[input]->body);
+				repeat = false;
 			}
-		}
+			else
+			{
+				printf("There is no appointment at %d\n", input);
+			}
+				printf("");
+		} while (repeat);
 	}
 	else {
 		printf("There are no appointments to display.");
