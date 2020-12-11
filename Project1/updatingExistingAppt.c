@@ -27,7 +27,7 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 			int choice;
 			printf("What would you like to update:\n");
 			printf("1) Appointment name\n2) Location\n3) Description\n");
-			printf("4) Starting time\n5) Ending Time\n");
+			printf("4) Time\n");
 			choice = getUserInput("Enter here: ");
 
 			switch (choice) {
@@ -58,15 +58,12 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 				printf("Enter starting time:\n");
 				apptList[input]->startHour = inputTime(0, 23);
 				apptList[input]->startMinutes = inputTime(0, 59);
-				printf("Starting time updated.\n");
-				break;
-			case(5):
 				printf("Previous Ending time: %d:%d\n", apptList[input]->endHour, apptList[input]->endMinutes);
 				printf("Enter a new ending time to change previous one.\n");
 				printf("Enter ending time:\n");
 				apptList[input]->endHour = inputTime(0, 23);
 				apptList[input]->endMinutes = inputTime(0, 59);
-				printf("Ending time updated.\n");
+				printf("Time updated.\n");
 				break;
 			}
 		}
