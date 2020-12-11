@@ -17,12 +17,12 @@ int main(void)
 	char selection;
 	char fileName[MAX_FILENAME] = { 0 };
 	int size = 0; 
-	char file_Name[MAX_FILENAME] = { 0 };
 	
 	printIntro();
 
 	while (repeat)
 	{
+		char file_Name[MAX_FILENAME] = { 0 };
 		menu();
 		selection = getUserInput("Please enter your choice here: ");
 
@@ -55,6 +55,7 @@ int main(void)
 			saveDataToDisk(apptList, &size, fileName);
 			break;
 		case (9):
+			askForFilePath(fileName);
 			loadDataFromDisk(apptList, &size, file_Name);
 			break;
 		case (10):
