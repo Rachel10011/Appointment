@@ -139,8 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addNewAppt.c" />
+    <ClCompile Include="createAppt.c" />
+    <ClCompile Include="deleteExistingAppt.c" />
+    <ClCompile Include="displayAllAppt.c" />
+    <ClCompile Include="displayRangeAppt.c" />
     <ClCompile Include="displaySingleAppt.c" />
     <ClCompile Include="Features.c" />
+    <ClCompile Include="loadDataFromDisk.c" />
+    <ClCompile Include="saveDataToDisk.c" />
     <ClCompile Include="searchForAppt.c" />
     <ClCompile Include="Source.c" />
     <ClCompile Include="updatingExistingAppt.c" />
