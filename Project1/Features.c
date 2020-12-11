@@ -395,7 +395,7 @@ void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 		for (int i = 0; i < *size; i++)
 		{
 			PAPPOINTMENT appointment;
-			fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment->startHour, &appointment->startMinutes, &appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
+			fscanf(fp, "%d %d %d %d %s %s %s\n\n", &appointment->startHour, &appointment->startMinutes, &appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
 			apptList[i] = appointment;
 		}
 	}
