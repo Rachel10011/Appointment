@@ -142,6 +142,7 @@
     <ClCompile Include="addNewAppt.c" />
     <ClCompile Include="createAppt.c" />
     <ClCompile Include="deleteExistingAppt.c" />
+    <ClCompile Include="displayAllAppt.c" />
     <ClCompile Include="displaySingleAppt.c" />
     <ClCompile Include="Features.c" />
     <ClCompile Include="searchForAppt.c" />
