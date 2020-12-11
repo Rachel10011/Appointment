@@ -30,9 +30,6 @@
     <ClCompile Include="searchForAppt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="createAppt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="addNewAppt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
