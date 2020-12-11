@@ -67,15 +67,6 @@ int main(void)
 		}
 	}
 
-
-	//fclose(fp);
-	/*if (saveDataToDisk(apptList, fileName))
-		printf("Appointments are updated to file\n");
-	else
-		printf("Error saving data to file\n");
-		
-	puts("\nThank you for using our appointment app!\n");
-	*/
 	disposeAppt(apptList,&size);
 
 	return 0;
