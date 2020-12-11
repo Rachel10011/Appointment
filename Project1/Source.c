@@ -56,7 +56,7 @@ int main(void)
 			break;
 		case (9):
 			askForFilePath(fileName);
-			loadDataFromDisk(&apptList, &size, fileName);
+			loadDataFromDisk(apptList, &size, fileName);
 			break;
 		case (10):
 			repeat = false;

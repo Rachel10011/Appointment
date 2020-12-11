@@ -5,9 +5,8 @@
 void searchForAppt(PAPPOINTMENT apptList[], int*size) {
 
 	int input;
-	char scannedInput;
 
-	input=getUserInput("Enter the name of the appointment you wish to search in the list: ");
+	input = getUserInput("Enter the number of the appointment you wish to search in the list: "); 
 	
 	for (int i = 0; i < size; i++)
 	{
