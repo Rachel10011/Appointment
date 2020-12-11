@@ -45,6 +45,8 @@ int getUserInput(char message[])
 		scannedInput = scanf_s("%d", &input);
 		char buf;
 		while ((buf = getchar()) != '\n' && input != EOF);
+		if (scannedInput != 1)
+			printf("Only numebr is accepted. Try again.\n");
 	}while (scannedInput != 1);
 
 	return input;
@@ -261,6 +263,8 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 	print the current list appoinment so the user can choose easiser
 	*/
 
+	displayAllAppt(list, size);
+
 	char temp[MAXAPPT];
 	int num;
 	num = getUserInput("Enter appointment's number that you want to delete:");
@@ -286,32 +290,42 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 
 void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 {
-	printf("The List of all appointment today\n");
-	if(*size == 0)
+	if (*size == 0)
 	{
 		printf("No appointment today");
 		return;
 	}
+
+	printf("The List of all appointment today: \n");
 	for (int i = 0; i < *size; i++)
 	{
-		printf("% d: % d - % d : % d \nName : % s\nLocation : % s\nInformation : % s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+		printf("%d:%d - %d:%d\nName: %s\nLocation: %s\nInformation: %s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
 	}
+
 }
 
 void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 {
 	int j;
-	printf("This is all appointment for today\n");
+
 	if (*size == NULL)
 	{
 		printf("No appointment today\n");
 		return;
 	}
-	for (int i = 0; i < size; i++)
+
+	printf("This is all appointment for today\n");
+	for (int i = 0; i < *size; i++)
 	{
-		printf("% d: % d - % d : % d \nName : % s\nLocation : % s\nInformation : % s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
-		printf("Enter the number of the appointment you want to check the range:");
-		scanf_s("%d", &j);
+		printf( "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+		j = getUserInput("Enter the number of the appointment you want to check the range: ");
+		//scanf_s("%d", &j);
+		if (j >= *size)
+		{
+			printf("There is no appointmetn at %d\n", j);
+			return;
+		}
+
 		int rangemin, rangehour;
 		rangemin = apptList[j]->endMinutes - apptList[j]->startMinutes;
 		if (rangemin < 0)
@@ -326,12 +340,12 @@ void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 			}
 			else
 			{
-				printf("The range of the appointment : %d:%d", rangehour, rangeMin);
+				printf("The range of the appointment: %d:%d", rangehour, rangeMin);
 			}
 			return;
 		}
 		rangehour = apptList[j]->endHour - apptList[j]->startHour;
-		printf("The range of the appointment : %d:%d", rangehour, rangemin);
+		printf("The range of the appointment: %d:%d", rangehour, rangemin);
 		return;
 	}
 
@@ -350,10 +364,8 @@ void askForFilePath(char fileName[])
 		scanf("%s", fileName);
 		getchar();
 
-		//fp = fopen(fileName, "r+");
 		if (!fopen(fileName, "r+"))
 		{
-			//fp = fopen(fileName, "w+");
 			printf("Entered file name is unaccepted. Please try again.\n");
 			repeat = true;
 		}
@@ -386,6 +398,9 @@ void saveDataToDisk(PAPPOINTMENT apptList[], int*size, char fileName[])
 
 void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 {
+	
+	//if(*size == 0)
+
 	FILE* fp;
 	turnback:
 	printf("Enter name of a file you wish to load:\n");
@@ -393,7 +408,7 @@ void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 	if ((fp = fopen(file_Name, "r")) == NULL)
 	{
 		char selection;
-		printf("\nThere is no file with that name\n");
+		printf("\nEnterd file is empty.\n");
 		turnback1:
 		puts("*--------------------------------*");
 		puts("|   Do you Want to input again   |");
