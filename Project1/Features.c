@@ -80,9 +80,8 @@ int inputTime(int min, int max)
 	char buffer[MAXTIME];
 
 	do {
-		printf("Please enter a number between %d and %d: ", min, max);
-		fgets(buffer, MAXTIME, stdin);
-		time = atoi(buffer);										 //conert char to int
+		printf("Please enter a number between %d and %d:", min, max);
+		time = getUserInput("");
 		if (time<min || time>max)
 			puts("Invalid input! Please try again.");
 	} while (time<min || time>max);									//if the user's input is not inthe range of time, ask for another input
@@ -292,7 +291,7 @@ void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 {
 	if (*size == 0)
 	{
-		printf("No appointment today");
+		printf("No appointment today\n");
 		return;
 	}
 
@@ -305,52 +304,44 @@ void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 }
 
 void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
+
 {
-	int j;
-
 	if (*size == NULL)
-	{
-		printf("No appointment today\n");
 		return;
-	}
+	
+	displayAllAppt(apptList, size);
 
-	printf("This is all appointment for today\n");
 	for (int i = 0; i < *size; i++)
 	{
-		printf( "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
-		j = getUserInput("Enter the number of the appointment you want to check the range: ");
-		//scanf_s("%d", &j);
-		if (j >= *size)
-		{
-			printf("There is no appointmetn at %d\n", j);
-			return;
-		}
 
-		int rangemin, rangehour;
-		rangemin = apptList[j]->endMinutes - apptList[j]->startMinutes;
-		if (rangemin < 0)
+		int range_min, range_hour;
+		
+		i=getUserInput("Enter the number of the appointment you want to check the range:");
+
+		range_min = apptList[i]->endMinutes - apptList[i]->startMinutes;
+		
+		if (range_min < 0)
 		{
-			int endhour = apptList[j]->endHour - 1;
-			int endminute = apptList[j]->endMinutes + 60;
-			int rangeMin = endminute - apptList[j]->startMinutes;
-			rangehour = endhour - apptList[j]->startHour;
-			if (rangehour < 0)
+			int endhour = apptList[i]->endHour - 1;
+			int endminute = apptList[i]->endMinutes + 60;
+			int rangeMin = endminute - apptList[i]->startMinutes;
+			range_hour = endhour - apptList[i]->startHour;
+			if (range_hour < 0)
 			{
 				printf("Invalid Appointment");
 			}
 			else
 			{
-				printf("The range of the appointment: %d:%d", rangehour, rangeMin);
+				printf("The range of the appointment : %d:%d", range_hour, rangeMin);
 			}
 			return;
 		}
-		rangehour = apptList[j]->endHour - apptList[j]->startHour;
-		printf("The range of the appointment: %d:%d", rangehour, rangemin);
+		else
+			range_hour = apptList[i]->endHour - apptList[i]->startHour;
+
+		printf("The range of the appointment %d:%d-%d:%d is %d:%d", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes,range_hour, range_min);
 		return;
 	}
-
-
-
 
 }
 
@@ -398,45 +389,22 @@ void saveDataToDisk(PAPPOINTMENT apptList[], int*size, char fileName[])
 
 void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 {
-	
-	//if(*size == 0)
-
 	FILE* fp;
-	turnback:
-	printf("Enter name of a file you wish to load:\n");
-	gets(file_Name);
-	if ((fp = fopen(file_Name, "r")) == NULL)
+	if ( fopen(file_Name, "r") == NULL)
 	{
-		char selection;
-		printf("\nEnterd file is empty.\n");
-		turnback1:
-		puts("*--------------------------------*");
-		puts("|   Do you Want to input again   |");
-		puts("|   1. Input again               |");
-		puts("|   2. Exit to the menu          |");
-		puts("*--------------------------------*");
-		selection = getUserInput("Please enter your choice here: ");
-		switch (selection)
-		{
-		case (1):
-			goto turnback;
-			break;
-		case (2):
-			break;
-		default:
-			puts("Invalid input! Please try again\n");
-			goto turnback1;
-			break;
-		}
+		printf("There is no data to load\n");
+		return;
 	}
-	else 
+	else
 	{
-		for (int i = 0; i < *size; i++) 
+		fp = fopen(file_Name, "r");
+		for (int i = 0; i <= *size; i++)
 		{
-			fgets("%d%d%d%d%s%s%s", &apptList[i]->startHour, &apptList[i]->startMinutes, &apptList[i]->endHour, &apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body,fp);
-			printf("Here is the Data in your file\n");
-			printf("%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+			PAPPOINTMENT appointment = { 0 };
+			fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment->startHour, &appointment->startMinutes,&appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
+			apptList[i] = appointment;
 		}
+
 		fclose(fp);
 		printf("\nLoad Data From File Successfully\n");
 	}

@@ -7,8 +7,7 @@ void searchForAppt(PAPPOINTMENT apptList[], int*size) {
 	int input;
 	char scannedInput;
 
-	printf("Enter the name of the appointment you wish to search in the list: "); 
-	scannedInput = scanf_s("%d", &input);
+	input=getUserInput("Enter the name of the appointment you wish to search in the list: ");
 	
 	for (int i = 0; i < size; i++)
 	{

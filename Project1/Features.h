@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #define MAX_TIME_SIZE 6
-#define MAXTIME 11 
+#define MAXTIME 2 
 #define MAXNAME 51	  
 #define MAXBODY 1000
 #define MAXAPPT 48
@@ -59,4 +59,5 @@ void searchForAppt(PAPPOINTMENT[], int*);
 //By Le Minh Nguyen
 void displayRangeAppt(PAPPOINTMENT[],int*);
 void displayAllAppt(PAPPOINTMENT[],int*);
+void loadDataFromDisk(APPOINTMENT[], int* , char[]);
 //load from file function
