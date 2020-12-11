@@ -35,18 +35,18 @@ void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 			range_hour = endhour - apptList[i]->startHour;
 			if (range_hour < 0)
 			{
-				printf("Invalid Appointment");
+				printf("Invalid Appointment\n");
 			}
 			else
 			{
-				printf("The range of the appointment : %d:%d", range_hour, rangeMin);
+				printf("The range of the appointment at %d is %d hours and %d minutes\n\n", i, range_hour, rangeMin);
 			}
 			return;
 		}
 		else
 			range_hour = apptList[i]->endHour - apptList[i]->startHour;
 
-		printf("The range of the appointment %d:%d-%d:%d is %d:%d", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, range_hour, range_min);
+		printf("The range of the appointment at %d is %d hours and %d minutes\n\n",i, range_hour, range_min);
 		return;
 	}
 

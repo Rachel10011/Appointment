@@ -9,7 +9,6 @@
 #pragma once
 #include <stdio.h>
 #include <stdbool.h>
-#define MAX_TIME_SIZE 6
 #define MAXTIME 2 
 #define MAXNAME 51	  
 #define MAXBODY 1000

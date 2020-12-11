@@ -177,23 +177,4 @@ void disposeAppt(PAPPOINTMENT appt[], int* size)
 }
 
 
-void askForFilePath(char fileName[])
-{
-	FILE* fp;
-	bool repeat;
-	do
-	{
-		printf("Please enter a full path of the file you want to access/create: ");
-		scanf("%s", fileName);
-		getchar();
 
-		if (!fopen(fileName, "r+"))
-		{
-			printf("Entered file name is unaccepted. Please try again.\n");
-			repeat = true;
-		}
-		else
-			repeat = false;
-	} while (repeat);
-
-}

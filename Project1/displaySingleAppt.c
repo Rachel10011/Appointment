@@ -27,6 +27,6 @@ void displaySingleAppt(PAPPOINTMENT apptList[], int* size) {
 		} while (repeat);
 	}
 	else {
-		printf("There are no appointments to display.");	// prints when there are no appointments in the list 
+		printf("There are no appointments to display.\n");	// prints when there are no appointments in the list 
 	}
 }

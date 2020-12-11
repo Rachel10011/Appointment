@@ -21,7 +21,10 @@ void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 	printf("The List of all appointment today: \n");
 	for (int i = 0; i < *size; i++)
 	{
-		printf("%d:%d - %d:%d\nName: %s\nLocation: %s\nInformation: %s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+		printf("[%d]\t%d:%d-%d:%d\n", i, apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes);
+		printf("    \tName: %s\n", apptList[i]->apptName);
+		printf("    \tLocation: %s\n", apptList[i]->location);
+		printf("    \tDescription: %s\n", apptList[i]->body);
 	}
 
 }

@@ -18,10 +18,6 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 		return;
 	}
 
-	/*puts("List of current appointment: ");
-	print the current list appoinment so the user can choose easiser
-	*/
-
 	displayAllAppt(list, size);
 
 	char temp[MAXAPPT];
