@@ -6,6 +6,7 @@ void displaySingleAppt(PAPPOINTMENT apptList[], int* size) {
 
 	char ApptName[MAXNAME];
 
+	displayAllAppt(apptList, size);
 	if (*size != 0) {
 		bool repeat = true;
 		do
