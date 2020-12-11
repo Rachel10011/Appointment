@@ -198,27 +198,6 @@ void askForFilePath(char fileName[])
 
 }
 
-void saveDataToDisk(PAPPOINTMENT apptList[], int*size, char fileName[])
-{
-	if (*size == 0)
-	{
-		printf("There is no appointment to save to data.\n");
-	}
-	else
-	{
-		FILE* fp;
-		fp = fopen(fileName, "w+");
-
-		for (int i = 0; i < *size; i++)
-		{
-			fprintf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
-		}
-
-		fclose(fp);
-		printf("\nAppointments are updated to file successfully\n");
-	}
-}
-
 void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 {
 	FILE* fp;

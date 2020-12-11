@@ -146,6 +146,7 @@
     <ClCompile Include="displayRangeAppt.c" />
     <ClCompile Include="displaySingleAppt.c" />
     <ClCompile Include="Features.c" />
+    <ClCompile Include="saveDataToDisk.c" />
     <ClCompile Include="searchForAppt.c" />
     <ClCompile Include="Source.c" />
     <ClCompile Include="updatingExistingAppt.c" />
