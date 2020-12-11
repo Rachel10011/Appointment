@@ -16,6 +16,7 @@ void addNewAppt(PAPPOINTMENT[], PAPPOINTMENT, int*);
 void deleteExistingAppt(PAPPOINTMENT, int*);
 
 Dominic Pham
+organized required functions into separate .c files
 int menu(void)
 void updateExistingAppt(PAPPOINTMENT[], int*); 
 void displaySingleAppt(PAPPOINTMENT[], int*);
