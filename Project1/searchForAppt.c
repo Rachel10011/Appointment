@@ -11,7 +11,7 @@ void searchForAppt(PAPPOINTMENT apptList[], int*size) {
 
 	for (int i = 0; i < size; i++)
 	{
-		if (strcmp(search_Name, apptList[i]->apptName) == 0) 
+		if (strcmp(search_Name, apptList[i]->apptName) == 0)	//searches for appointment name in list
 		{
 			printf("Appointment exists in the list.\n");
 			return;

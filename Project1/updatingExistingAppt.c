@@ -25,35 +25,35 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 		{
 			repeat = false;
 			int choice;
-			printf("What would you like to update:\n");
-			printf("1) Appointment name\n2) Location\n3) Description\n");
+			printf("What would you like to update:\n");						// prompts a menu for user to choose what they would
+			printf("1) Appointment name\n2) Location\n3) Description\n");	// like to change in their appointment
 			printf("4) Time\n");
 			choice = getUserInput("Enter here: ");
 
-			switch (choice) {
+			switch (choice) {														
 			case(1):
-				printf("Previous appointment name: %s\n", apptList[input]->apptName);
-				printf("Enter a new appointment name to change previous one: ");
+				printf("Previous appointment name: %s\n", apptList[input]->apptName);	// update appointment name 
+				printf("Enter a new appointment name to change previous one: ");		
 				fgets(name_Update, MAXNAME,stdin);
 				strncpy(apptList[input]->apptName, name_Update, MAXNAME);
 				printf("Appointment name updated.\n");
 				break;
 			case(2):
-				printf("Previous location: %s\n", apptList[input]->location);
+				printf("Previous location: %s\n", apptList[input]->location);	// update location
 				printf("Enter a new location to change previous one: ");
 				fgets(location_Update,MAXNAME,stdin);
 				strncpy(apptList[input]->location, location_Update, MAXNAME);
 				printf("Location updated.\n");
 				break;
 			case(3):
-				printf("Previous description: %s\n", apptList[input]->body);
+				printf("Previous description: %s\n", apptList[input]->body);	// update description 
 				printf("Enter a new description to change previous one: ");
 				fgets(body_Update,MAXNAME,stdin);
 				strncpy(apptList[input]->body, body_Update, MAXBODY);
 				printf("Description updated.\n");
 				break;
 			case(4):
-				printf("Previous Starting time: %d:%d\n", apptList[input]->startHour, apptList[input]->startMinutes);
+				printf("Previous Starting time: %d:%d\n", apptList[input]->startHour, apptList[input]->startMinutes);	//update time
 				printf("Enter a new starting time to change previous one.\n");
 				printf("Enter starting time:\n");
 				apptList[input]->startHour = inputTime(0, 23);
