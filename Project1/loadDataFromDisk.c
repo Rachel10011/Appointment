@@ -9,25 +9,25 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "Features.h"
-
+#include <conio.h>
+#include <stdlib.h>
 void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 {
 	FILE* fp;
-	if (fopen(file_Name, "r") == NULL)
+	PAPPOINTMENT appointment[] = { 0 };
+	fp = fopen(file_Name, "r");
+	if (fp == NULL)
 	{
 		printf("There is no data to load\n");
-		return;
+		exit(1);
 	}
 	else
 	{
-		fp = fopen(file_Name, "r");
 		for (int i = 0; i <= *size; i++)
 		{
-			PAPPOINTMENT appointment = { 0 };
-			fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment->startHour, &appointment->startMinutes, &appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
-			apptList[i] = appointment;
+			fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment[i]->startHour, &appointment[i]->startMinutes, &appointment[i]->endHour, &appointment[i]->endMinutes, appointment[i]->apptName, appointment[i]->location, appointment[i]->body);
+			apptList[i] = appointment[i];
 		}
-
 		fclose(fp);
 		printf("\nLoad Data From File Successfully\n");
 	}
