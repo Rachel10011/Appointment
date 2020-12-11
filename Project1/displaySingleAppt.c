@@ -11,8 +11,8 @@ void displaySingleAppt(PAPPOINTMENT apptList[], int* size) {
 		bool repeat = true;
 		do
 		{
-			int input = getUserInput("Enter the number of the appointment you wish to display: ");
-			if (input >= 0 && input < size) {
+			int input = getUserInput("Enter the number of the appointment you wish to display: ");	// searches through list for the index number of 
+			if (input >= 0 && input < size) {													    // the appointment the user wishes to display
 				printf("[%d]\t%d:%d-%d:%d\n", input, apptList[input]->startHour, apptList[input]->startMinutes, apptList[input]->endHour, apptList[input]->endMinutes);
 				printf("    \tName: %s\n", apptList[input]->apptName);
 				printf("    \tLocation: %s\n", apptList[input]->location);
@@ -21,12 +21,12 @@ void displaySingleAppt(PAPPOINTMENT apptList[], int* size) {
 			}
 			else
 			{
-				printf("There is no appointment at %d\n", input);
+				printf("There is no appointment at %d\n", input); //prints when there is no existing appointment at given index
 			}
 				printf("");
 		} while (repeat);
 	}
 	else {
-		printf("There are no appointments to display.");
+		printf("There are no appointments to display.");	// prints when there are no appointments in the list 
 	}
 }
