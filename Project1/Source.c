@@ -36,7 +36,7 @@ int main(void)
 			deleteExistingAppt(apptList, &size);
 			break;
 		case (3):
-			updateExistingAppt(apptList, &size);
+			updateExistingAppt(apptList, &size, copyNewAppt(newAppt));
 			continue;
 		case (4):
 			displaySingleAppt(apptList,&size);
