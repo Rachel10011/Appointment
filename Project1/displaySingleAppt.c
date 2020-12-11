@@ -5,8 +5,7 @@
 void displaySingleAppt(PAPPOINTMENT apptList[], int* size) {
 
 	char ApptName[MAXNAME];
-	printf("Enter the name of the appointment you wish to display: ");
-	(void)scanf_s("%s", &ApptName);
+	int input = getUserInput("Enter the number of the appointment you wish to display: ");
 
 	if (size != NULL) {
 		for (int i = 0; i < size; i++)
