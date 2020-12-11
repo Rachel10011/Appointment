@@ -34,21 +34,21 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 			case(1):
 				printf("Previous appointment name: %s\n", apptList[input]->apptName);
 				printf("Enter a new appointment name to change previous one: ");
-				gets(name_Update);
+				fgets(name_Update, MAXNAME, stdin);
 				strncpy(apptList[input]->apptName, name_Update, MAXNAME);
 				printf("Appointment name updated.\n");
 				break;
 			case(2):
 				printf("Previous location: %s\n", apptList[input]->location);
 				printf("Enter a new location to change previous one: ");
-				gets(location_Update);
+				fgets(location_Update, MAXNAME, stdin); 
 				strncpy(apptList[input]->location, location_Update, MAXNAME);
 				printf("Location updated.\n");
 				break;
 			case(3):
 				printf("Previous description: %s\n", apptList[input]->body);
 				printf("Enter a new description to change previous one: ");
-				gets(body_Update);
+				fgets(body_Update, MAXBODY, stdin); 
 				strncpy(apptList[input]->body, body_Update, MAXBODY);
 				printf("Description updated.\n");
 				break;

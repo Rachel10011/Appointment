@@ -138,9 +138,9 @@ APPOINTMENT createAppt()
 		exit(1);
 	}
 
-	strncpy(newAppt.apptName,name, strlen(name)+1);
-	strncpy(newAppt.location, location, strlen(location)+1);
-	strncpy(newAppt.body, body, strlen(body)+1);
+	strncpy(newAppt.apptName,name, strlen(name));
+	strncpy(newAppt.location, location, strlen(location));
+	strncpy(newAppt.body, body, strlen(body));
 
 	newAppt.apptName[strlen(name)] = '\0';
 	newAppt.location[strlen(location)] = '\0';
@@ -196,10 +196,10 @@ void addApptToList(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int index)
 
 void sortAppt(PAPPOINTMENT apptList[], int size)
 {
-	if (size = 0)
+	if (size == 0)
 		return;
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size-1; i++)
 	{
 		for (int j = i+1; j < size; j++)
 		{
@@ -220,7 +220,7 @@ void sortAppt(PAPPOINTMENT apptList[], int size)
 
 void disposeAppt(PAPPOINTMENT appt[], int* size)
 {
-	if ((*size) = 0)
+	if ((*size) == 0)
 		return;
 
 	for (int i = 0; i < *size; i++)
@@ -262,33 +262,28 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 		return;
 	}
 
-	/*puts("List of current appointment: ");
-	print the current list appoinment so the user can choose easiser
-	*/
-
 	displayAllAppt(list, size);
 
 	char temp[MAXAPPT];
 	int num;
 	num = getUserInput("Enter appointment's number that you want to delete:");
-	if (num >= *size)
+	if (num >= *size||num<0)
 	{
 		printf("There is no appointment at %d\n", num);
 		return;
 	}
 
-	//make the values of satrting hours large so when sort the list, this appt will go to the end of the list
-	list[num]->startHour = 100;
-	list[num]->startMinutes = 100;
+	printf("\nDeleting appointment %d completed\n\n", num);
 
-	if (num < *size)
-	{
+	//make the values of satrting hours large so when sort the list, this appt will go to the end of the list
+	list[num]->startHour = MAXBODY;
+	list[num]->startMinutes = MAXBODY;
+	
+	if(num!=(*size-1))
 		sortAppt(list, *size);
-	}
 
 	(*size)--;
 
-	printf("\nDeleting appointment %d completed\n\n", num);
 }
 
 void displayAllAppt(PAPPOINTMENT apptList[], int* size)
@@ -302,7 +297,11 @@ void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 	printf("The List of all appointment today: \n");
 	for (int i = 0; i < *size; i++)
 	{
-		printf("%d:%d - %d:%d\nName: %s\nLocation: %s\nInformation: %s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+		
+		printf("[%d]\t%d:%d-%d:%d\n", i, apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes);
+		printf("    \tName: %s", apptList[i]->apptName);
+		printf("    \tLocation: %s", apptList[i]->location);
+		printf("    \tDescription: %s\n", apptList[i]->body);
 	}
 
 }
@@ -370,46 +369,46 @@ void askForFilePath(char fileName[])
 
 }
 
-void saveDataToDisk(PAPPOINTMENT apptList[], int*size, char fileName[])
+void saveDataToDisk(PAPPOINTMENT apptList[], int* size, char fileName[])
 {
 	if (*size == 0)
 	{
 		printf("There is no appointment to save to data.\n");
+		return;
 	}
-	else
+
+	FILE* fp;
+	fp = fopen(fileName, "w+");
+
+	for (int i = 0; i < *size; i++)
 	{
-		FILE* fp;
-		fp = fopen(fileName, "w+");
-
-		for (int i = 0; i < *size; i++)
-		{
-			fprintf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
-		}
-
-		fclose(fp);
-		printf("\nAppointments are updated to file successfully\n");
+		fprintf(fp,"[%d]\t%d:%d-%d:%d\n", i, apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes);
+		fprintf(fp,"    \tName: %s", apptList[i]->apptName);
+		fprintf(fp,"    \tLocation: %s", apptList[i]->location);
+		fprintf(fp,"    \tDescription: %s\n", apptList[i]->body);
 	}
+
+	fclose(fp);
+	printf("\nAppointments are updated to file successfully\n");
 }
 
 void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 {
 	FILE* fp;
-	if ( fopen(file_Name, "r") == NULL)
+	if ((fp=fopen(file_Name, "r")) == NULL)
 	{
 		printf("There is no data to load\n");
 		return;
 	}
-	else
-	{
-		fp = fopen(file_Name, "r");
-		for (int i = 0; i <= *size; i++)
-		{
-			PAPPOINTMENT appointment = { 0 };
-			fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment->startHour, &appointment->startMinutes,&appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
-			apptList[i] = appointment;
-		}
 
-		fclose(fp);
-		printf("\nLoad Data From File Successfully\n");
+	fp = fopen(file_Name, "r");
+	for (int i = 0; i <= *size; i++)
+	{
+		PAPPOINTMENT appointment = { 0 };
+		fscanf(fp, "[%d]\t%d:%d - %d:%d Name: %s Location: %s Description: %s", &appointment->startHour, &appointment->startMinutes, &appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
+		apptList[i] = appointment;
 	}
+
+	fclose(fp);
+	printf("\nLoad Data From File Successfully\n");
 }
