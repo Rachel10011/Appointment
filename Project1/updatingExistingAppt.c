@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include "Features.h"
 
-void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
+void updateExistingAppt(PAPPOINTMENT apptList[], int* size, PAPPOINTMENT appt)
 {
 	char name_Update[MAXNAME];
 	char location_Update[MAXNAME];
@@ -53,18 +53,24 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 				printf("Description updated.\n");
 				break;
 			case(4):
-				printf("Previous Starting time: %d:%d\n", apptList[input]->startHour, apptList[input]->startMinutes);	//update time
-				printf("Enter a new starting time to change previous one.\n");
-				printf("Enter starting time:\n");
-				apptList[input]->startHour = inputTime(0, 23);
-				apptList[input]->startMinutes = inputTime(0, 59);
-				printf("Previous Ending time: %d:%d\n", apptList[input]->endHour, apptList[input]->endMinutes);
-				printf("Enter a new ending time to change previous one.\n");
-				printf("Enter ending time:\n");
-				apptList[input]->endHour = inputTime(0, 23);
-				apptList[input]->endMinutes = inputTime(0, 59);
-				printf("Time updated.\n");
-				break;
+				do {
+					printf("Previous Starting time: %d:%d\n", apptList[input]->startHour, apptList[input]->startMinutes);	//update time
+					printf("Enter a new starting time to change previous one.\n");
+					printf("Enter starting time:\n");
+					apptList[input]->startHour = inputTime(0, 23);
+					apptList[input]->startMinutes = inputTime(0, 59);
+					printf("Previous Ending time: %d:%d\n", apptList[input]->endHour, apptList[input]->endMinutes);
+					printf("Enter a new ending time to change previous one.\n");
+					printf("Enter ending time:\n");
+					apptList[input]->endHour = inputTime(0, 23);
+					apptList[input]->endMinutes = inputTime(0, 59);
+				} while ((appt->startHour) > (apptList[input]->startHour) && (appt->startHour) < (apptList[input]->endHour) ||
+					(appt->endHour) < (apptList[input]->endHour) && (appt->endHour) > (apptList[input]->startHour) ||
+					(appt->startHour) == (apptList[input]->endHour) && (appt->startMinutes) < (apptList[input]->endMinutes) ||
+					(appt->endHour) == (apptList[input]->startHour) && (appt->endMinutes) > (apptList[input]->startMinutes));
+		
+					printf("Time updated.\n");
+					break;
 			}
 		}
 		else

@@ -56,27 +56,6 @@ int getUserInput(char message[])
 	return input;
 }
 
-bool isNull(PAPPOINTMENT appt)
-{
-	return appt == NULL;		//return true if appt is null, otherwise return false
-}
-
-PAPPOINTMENT initialAppointment()
-{
-	PAPPOINTMENT appt = (PAPPOINTMENT)malloc(sizeof(APPOINTMENT));
-	if (!appt)
-	{
-		fprintf(stderr, "Error allocating memory!\n");
-	}
-	appt->startHour = 0;
-	appt->startMinutes = 0;
-	appt->endMinutes = 0;
-	appt->endHour = 0;
-	appt->apptName= NULL;
-	appt->body= NULL;
-	appt->location= NULL;
-	return appt;
-}
 
 int inputTime(int min, int max)
 {
@@ -93,88 +72,25 @@ int inputTime(int min, int max)
 	return time;		
 }
 
-
-PAPPOINTMENT copyNewAppt(APPOINTMENT newAppt)
+void askForFilePath(char fileName[])
 {
-	PAPPOINTMENT pCopyAppt = (PAPPOINTMENT)malloc(sizeof(APPOINTMENT));
-	if (!pCopyAppt)
+	FILE* fp;
+	bool repeat;
+	do
 	{
-		fprintf(stderr, "Error allocating memory!\n");
-		exit(1);
-	}
+		printf("Please enter a full path of the file you want to access/create: ");
+		scanf("%s", fileName);
+		getchar();
 
-	pCopyAppt->apptName = (char*)malloc(strlen(newAppt.apptName) + 1);
-	pCopyAppt->location = (char*)malloc(strlen(newAppt.location) + 1);
-	pCopyAppt->body = (char*)malloc(strlen(newAppt.body) + 1);
-
-	if (!pCopyAppt->apptName || !pCopyAppt->location || !pCopyAppt->body)
-	{
-		fprintf(stderr, "Error allocating memory\n");
-		exit(1);
-	}
-
-	memset(pCopyAppt->apptName, 0, strlen(newAppt.apptName) + 1);
-	strncpy(pCopyAppt->apptName, newAppt.apptName, strlen(newAppt.apptName));
-
-	memset(pCopyAppt->location, 0, strlen(newAppt.location) + 1);
-	strncpy(pCopyAppt->location, newAppt.location, strlen(newAppt.location));
-	
-	memset(pCopyAppt->body, 0, strlen(newAppt.body) + 1);
-	strncpy(pCopyAppt->body, newAppt.body, strlen(newAppt.body));
-
-	pCopyAppt->startHour = newAppt.startHour;
-	pCopyAppt->startMinutes = newAppt.startMinutes;
-	pCopyAppt->endHour = newAppt.endHour;
-	pCopyAppt->endMinutes = newAppt.endMinutes;
-
-	return pCopyAppt;
-
-}
-void addApptToList(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int index)
-{
-	if (isNull(appt))
-		return;
-
-	apptList[index] = appt;
-
-}
-
-void sortAppt(PAPPOINTMENT apptList[], int size)
-{
-	if (size = 0)
-		return;
-
-	for (int i = 0; i < size; i++)
-	{
-		for (int j = i+1; j < size; j++)
+		if (!fopen(fileName, "r+"))
 		{
-			PAPPOINTMENT temp;
-
-			if (apptList[i]->startHour > apptList[j]->startHour || 
-				apptList[i]->startHour == apptList[j]->startHour && 
-				apptList[i]->startMinutes > apptList[j]->startMinutes)
-			{
-				temp = apptList[i];
-				apptList[i] = apptList[j];
-				apptList[j] = temp;
-			}
-
+			printf("Entered file name is unaccepted. Please try again.\n");
+			repeat = true;
 		}
-	}
+		else
+			repeat = false;
+	} while (repeat);
+
 }
-
-void disposeAppt(PAPPOINTMENT appt[], int* size)
-{
-	if ((*size) = 0)
-		return;
-
-	for (int i = 0; i < *size; i++)
-	{
-		free(appt[i]->apptName);
-		free(appt[i]->location);
-		free(appt[i]->location);
-	}
-}
-
 
 

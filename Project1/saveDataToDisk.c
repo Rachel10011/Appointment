@@ -29,4 +29,5 @@ void saveDataToDisk(PAPPOINTMENT apptList[], int* size, char fileName[])
 		fclose(fp);
 		printf("\nAppointments are updated to file successfully\n");
 	}
+
 }
