@@ -12,7 +12,7 @@
 #define MAX_TIME_SIZE 6
 #define MAXTIME 11 
 #define MAXNAME 51	  
-#define MAXBODY 201
+#define MAXBODY 1000
 #define MAXAPPT 48
 #define MAX_FILENAME 100 
 
@@ -33,12 +33,10 @@ typedef struct listappointment
 	struct listappointment* nextappt;
 }LISTAPPT, * PLISTAPPT;
 
-
-//Required features:
-void printIntro();
 void menu(void);
 
-
+//By Thi Huong Tra Le:
+void printIntro();
 int getUserInput(char []);
 int inputTime(int, int);
 PAPPOINTMENT initialAppointment();
@@ -49,15 +47,16 @@ void sortAppt(PAPPOINTMENT[], int);
 void disposeAppt(PAPPOINTMENT[], int*);
 void addNewAppt(PAPPOINTMENT[], PAPPOINTMENT, int*);
 void deleteExistingAppt(PAPPOINTMENT, int*);
+void askForFilePath(char[]);
+void saveDataToDisk(PAPPOINTMENT[], int*, char[]);			
+
+
+//By Dominic Pham
 void updateExistingAppt(PAPPOINTMENT[], int*);
 void displaySingleAppt(PAPPOINTMENT[],int*);
 void searchForAppt(PAPPOINTMENT[], int*);
+
+//By Le Minh Nguyen
 void displayRangeAppt(PAPPOINTMENT[],int*);
 void displayAllAppt(PAPPOINTMENT[],int*);
-
-void askForFilePath(char[]);
-void saveDataToDisk(PAPPOINTMENT [],int*, char[]);
-
-//Friendly/easy to use UI (or menu system) --- nice and clean design?
-//save accumulated data to disk   ---- save to file?
-//load accumulated data from disk ---- load data from file?
+//load from file function

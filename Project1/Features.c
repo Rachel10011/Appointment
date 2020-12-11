@@ -90,12 +90,12 @@ int inputTime(int min, int max)
 APPOINTMENT createAppt()
 {
 	APPOINTMENT newAppt;
-	char name[20];
-	char location[20];
-	char body[100];
-	bool repeat = true;
+	char name[MAXNAME];
+	char location[MAXNAME];
+	char body[MAXBODY];
+	bool repeat;
 
-	puts("To book time for your appointment. Please follow the instruction below.\nYou will need to enter hour and minutes separately.");
+	puts("\nTo book time for your appointment. Please follow the instruction below.\nYou will need to enter hour and minutes separately.\nNote: Please enter 24-hour clock.\n");
 
 	do
 	{
@@ -106,18 +106,21 @@ APPOINTMENT createAppt()
 		newAppt.endHour = inputTime(0, 23);
 		newAppt.endMinutes = inputTime(0, 59);
 		if ((newAppt.startHour > newAppt.endHour || (newAppt.startHour == newAppt.endHour && newAppt.startMinutes > newAppt.endMinutes)))
+		{
 			printf("\nStarting time must be smaller than ending time. Please enter again.\n\n");
+			repeat = true;
+		}
 		else
 			repeat = false;
 
 	} while (repeat);
 
 	printf("Enter appoinments name: ");
-	gets(name);
+	fgets(name,MAXNAME,stdin);
 	printf("Enter location: ");
-	gets(location);
+	fgets(location, MAXNAME, stdin);
 	printf("Enter appointment's description: ");
-	gets(body); 
+	fgets(body, MAXBODY, stdin);
 
 	newAppt.apptName = (char*)malloc(strlen(name)+1);
 	newAppt.location = (char*)malloc(strlen(location)+1);
@@ -155,7 +158,7 @@ PAPPOINTMENT copyNewAppt(APPOINTMENT newAppt)
 
 	if (!pCopyAppt->apptName || !pCopyAppt->location || !pCopyAppt->body)
 	{
-		fprintf(stderr, "Error allocating memory");
+		fprintf(stderr, "Error allocating memory\n");
 		exit(1);
 	}
 
@@ -241,7 +244,7 @@ void addNewAppt(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int* size)
 	addApptToList(apptList, appt, *size);
 	(*size)++;
 	sortAppt(apptList, *size);
-	puts("New appointment is added successfully!");
+	puts("\nNew appointment is added successfully!\n");
 
 }
 
@@ -258,10 +261,8 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 	*/
 
 	char temp[MAXAPPT];
-	puts("Enter appointment's number that you want to delete:");
-	scanf_s("%s", &temp);
-
-	int num = atoi(temp);
+	int num;
+	num = getUserInput("Enter appointment's number that you want to delete:");
 	if (num >= *size)
 	{
 		printf("There is no appointment at %d\n", num);
@@ -279,7 +280,7 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 
 	(*size)--;
 
-	printf("Deleting appointment %d completed", num);
+	printf("\nDeleting appointment %d completed\n\n", num);
 }
 
 void displayAllAppt(PAPPOINTMENT apptList[], int* size)
