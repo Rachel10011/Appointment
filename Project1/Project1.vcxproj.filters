@@ -48,6 +48,9 @@
     <ClCompile Include="saveDataToDisk.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loadDataFromDisk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Features.h">
