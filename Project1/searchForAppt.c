@@ -4,13 +4,15 @@
 
 void searchForAppt(PAPPOINTMENT apptList[], int*size) {
 
-	char ApptName[MAXNAME];
+	int input;
+	char scannedInput;
+
 	printf("Enter the name of the appointment you wish to search in the list: ");
-	(void)scanf_s("%s", &ApptName);
+	scannedInput = scanf_s("%d", &input);
 	
 	for (int i = 0; i < size; i++)
 	{
-		if (strcmp(ApptName, apptList[i]->apptName) == 0) 
+		if (strcmp(input, apptList[i]->apptName) == 0) 
 		{
 			printf("Appointment exists in the list.\n");
 			return;

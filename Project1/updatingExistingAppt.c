@@ -4,18 +4,19 @@
 
 void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 {
-	char ApptName[MAXNAME];
 	char name_Update[MAXNAME];
 	char location_Update[MAXNAME];
 	char body_Update[MAXBODY];
+	int input;
+	char scannedInput;
 
 	printf("Enter the name of the appointment you wish to update: ");
-	(void)scanf_s("%s", &ApptName);
+	scannedInput = scanf_s("%d", &input);
 
 	if (size != NULL) {
 		for (int i = 0; i < size; i++)
 		{
-			if (strcmp(ApptName, apptList[i]->apptName) == 0) {
+			if (strcmp(input, apptList[i]->apptName) == 0) {
 				int choice = 0;
 				printf("What would you like to update:\n");
 				printf("1) Appointment name\n2) Location\n3) Description\n");
