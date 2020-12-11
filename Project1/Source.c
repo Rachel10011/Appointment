@@ -22,6 +22,7 @@ int main(void)
 
 	while (repeat)
 	{
+		char file_Name[MAX_FILENAME] = { 0 };
 		menu();
 		selection = getUserInput("Please enter your choice here: ");
 
@@ -55,7 +56,7 @@ int main(void)
 			break;
 		case (9):
 			askForFilePath(fileName);
-			loadDataFromDisk(apptList, &size, fileName);
+			loadDataFromDisk(apptList, &size, file_Name);
 			break;
 		case (10):
 			repeat = false;
@@ -66,15 +67,6 @@ int main(void)
 		}
 	}
 
-
-	//fclose(fp);
-	/*if (saveDataToDisk(apptList, fileName))
-		printf("Appointments are updated to file\n");
-	else
-		printf("Error saving data to file\n");
-		
-	puts("\nThank you for using our appointment app!\n");
-	*/
 	disposeAppt(apptList,&size);
 
 	return 0;

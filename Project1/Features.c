@@ -45,6 +45,8 @@ int getUserInput(char message[])
 		scannedInput = scanf_s("%d", &input);
 		char buf;
 		while ((buf = getchar()) != '\n' && input != EOF);
+		if (scannedInput != 1)
+			printf("Only numebr is accepted. Try again.\n");
 	}while (scannedInput != 1);
 
 	return input;
@@ -91,12 +93,12 @@ int inputTime(int min, int max)
 APPOINTMENT createAppt()
 {
 	APPOINTMENT newAppt;
-	char name[20];
-	char location[20];
-	char body[100];
-	bool repeat = true;
+	char name[MAXNAME];
+	char location[MAXNAME];
+	char body[MAXBODY];
+	bool repeat;
 
-	puts("To book time for your appointment. Please follow the instruction below.\nYou will need to enter hour and minutes separately.");
+	puts("\nTo book time for your appointment. Please follow the instruction below.\nYou will need to enter hour and minutes separately.\nNote: Please enter 24-hour clock.\n");
 
 	do
 	{
@@ -107,18 +109,21 @@ APPOINTMENT createAppt()
 		newAppt.endHour = inputTime(0, 23);
 		newAppt.endMinutes = inputTime(0, 59);
 		if ((newAppt.startHour > newAppt.endHour || (newAppt.startHour == newAppt.endHour && newAppt.startMinutes > newAppt.endMinutes)))
+		{
 			printf("\nStarting time must be smaller than ending time. Please enter again.\n\n");
+			repeat = true;
+		}
 		else
 			repeat = false;
 
 	} while (repeat);
 
 	printf("Enter appoinments name: ");
-	gets(name);
+	fgets(name,MAXNAME,stdin);
 	printf("Enter location: ");
-	gets(location);
+	fgets(location, MAXNAME, stdin);
 	printf("Enter appointment's description: ");
-	gets(body); 
+	fgets(body, MAXBODY, stdin);
 
 	newAppt.apptName = (char*)malloc(strlen(name)+1);
 	newAppt.location = (char*)malloc(strlen(location)+1);
@@ -156,7 +161,7 @@ PAPPOINTMENT copyNewAppt(APPOINTMENT newAppt)
 
 	if (!pCopyAppt->apptName || !pCopyAppt->location || !pCopyAppt->body)
 	{
-		fprintf(stderr, "Error allocating memory");
+		fprintf(stderr, "Error allocating memory\n");
 		exit(1);
 	}
 
@@ -242,7 +247,7 @@ void addNewAppt(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int* size)
 	addApptToList(apptList, appt, *size);
 	(*size)++;
 	sortAppt(apptList, *size);
-	puts("New appointment is added successfully!");
+	puts("\nNew appointment is added successfully!\n");
 
 }
 
@@ -258,11 +263,11 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 	print the current list appoinment so the user can choose easiser
 	*/
 
-	char temp[MAXAPPT];
-	puts("Enter appointment's number that you want to delete:");
-	scanf_s("%s", &temp);
+	displayAllAppt(list, size);
 
-	int num = atoi(temp);
+	char temp[MAXAPPT];
+	int num;
+	num = getUserInput("Enter appointment's number that you want to delete:");
 	if (num >= *size)
 	{
 		printf("There is no appointment at %d\n", num);
@@ -280,37 +285,47 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 
 	(*size)--;
 
-	printf("Deleting appointment %d completed", num);
+	printf("\nDeleting appointment %d completed\n\n", num);
 }
 
 void displayAllAppt(PAPPOINTMENT apptList[], int* size)
 {
-	printf("The List of all appointment today\n");
-	if(*size == 0)
+	if (*size == 0)
 	{
-		printf("No appointment today\n");
+		printf("No appointment today");
 		return;
 	}
+
+	printf("The List of all appointment today: \n");
 	for (int i = 0; i < *size; i++)
 	{
-		printf("% d: % d - % d : % d \nName : % s\nLocation : % s\nInformation : % s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+		printf("%d:%d - %d:%d\nName: %s\nLocation: %s\nInformation: %s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
 	}
+
 }
 
 void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 {
 	int j;
-	printf("This is all appointment for today\n");
+
 	if (*size == NULL)
 	{
 		printf("No appointment today\n");
 		return;
 	}
-	for (int i = 0; i < size; i++)
+
+	printf("This is all appointment for today\n");
+	for (int i = 0; i < *size; i++)
 	{
-		printf("% d: % d - % d : % d \nName : % s\nLocation : % s\nInformation : % s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
-		printf("Enter the number of the appointment you want to check the range:");
-		scanf_s("%d", &j);
+		printf( "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+		j = getUserInput("Enter the number of the appointment you want to check the range: ");
+		//scanf_s("%d", &j);
+		if (j >= *size)
+		{
+			printf("There is no appointmetn at %d\n", j);
+			return;
+		}
+
 		int rangemin, rangehour;
 		rangemin = apptList[j]->endMinutes - apptList[j]->startMinutes;
 		if (rangemin < 0)
@@ -325,12 +340,12 @@ void displayRangeAppt(PAPPOINTMENT apptList[], int* size)
 			}
 			else
 			{
-				printf("The range of the appointment : %d:%d", rangehour, rangeMin);
+				printf("The range of the appointment: %d:%d", rangehour, rangeMin);
 			}
 			return;
 		}
 		rangehour = apptList[j]->endHour - apptList[j]->startHour;
-		printf("The range of the appointment : %d:%d", rangehour, rangemin);
+		printf("The range of the appointment: %d:%d", rangehour, rangemin);
 		return;
 	}
 
@@ -349,10 +364,8 @@ void askForFilePath(char fileName[])
 		scanf("%s", fileName);
 		getchar();
 
-		//fp = fopen(fileName, "r+");
 		if (!fopen(fileName, "r+"))
 		{
-			//fp = fopen(fileName, "w+");
 			printf("Entered file name is unaccepted. Please try again.\n");
 			repeat = true;
 		}
@@ -385,21 +398,46 @@ void saveDataToDisk(PAPPOINTMENT apptList[], int*size, char fileName[])
 
 void loadDataFromDisk(PAPPOINTMENT apptList[], int* size, char file_Name[])
 {
-	FILE* fp;	
+	
+	//if(*size == 0)
+
+	FILE* fp;
+	turnback:
+	printf("Enter name of a file you wish to load:\n");
+	gets(file_Name);
 	if ((fp = fopen(file_Name, "r")) == NULL)
 	{
-		printf("There is no data to load\n");
+		char selection;
+		printf("\nEnterd file is empty.\n");
+		turnback1:
+		puts("*--------------------------------*");
+		puts("|   Do you Want to input again   |");
+		puts("|   1. Input again               |");
+		puts("|   2. Exit to the menu          |");
+		puts("*--------------------------------*");
+		selection = getUserInput("Please enter your choice here: ");
+		switch (selection)
+		{
+		case (1):
+			goto turnback;
+			break;
+		case (2):
+			break;
+		default:
+			puts("Invalid input! Please try again\n");
+			goto turnback1;
+			break;
+		}
 	}
 	else 
 	{
-		for (int i = 0; i < *size; i++)
+		for (int i = 0; i < *size; i++) 
 		{
-			PAPPOINTMENT appointment;
-			fscanf(fp, "%d %d %d %d %s %s %s\n\n", &appointment->startHour, &appointment->startMinutes, &appointment->endHour, &appointment->endMinutes, appointment->apptName, appointment->location, appointment->body);
-			apptList[i] = appointment;
+			fgets("%d%d%d%d%s%s%s", &apptList[i]->startHour, &apptList[i]->startMinutes, &apptList[i]->endHour, &apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body,fp);
+			printf("Here is the Data in your file\n");
+			printf("%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
 		}
+		fclose(fp);
+		printf("\nLoad Data From File Successfully\n");
 	}
-		
-	fclose(fp);
-	printf("\nLoad Data From File Successfully\n");
 }
