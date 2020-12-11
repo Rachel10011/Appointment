@@ -176,29 +176,6 @@ void disposeAppt(PAPPOINTMENT appt[], int* size)
 	}
 }
 
-
-void addNewAppt(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int* size)
-{
-	for (int i = 0; i < (*size); i++)
-	{
-		if ((appt->startHour)> (apptList[i]->startHour) && (appt->startHour)<(apptList[i]->endHour) ||
-			(appt->endHour)<(apptList[i]->endHour) && (appt->endHour)>(apptList[i]->startHour) ||
-			(appt->startHour) == (apptList[i]->endHour)&&(appt->startMinutes)<(apptList[i]->endMinutes)||
-			(appt->endHour)==(apptList[i]->startHour)&& (appt->endMinutes) >(apptList[i]->startMinutes))
-		{
-			printf("\nCannot book. Overlap time range!\n\n");
-			return;
-		}
-		
-	}
-
-	addApptToList(apptList, appt, *size);
-	(*size)++;
-	sortAppt(apptList, *size);
-	puts("\nNew appointment is added successfully!\n");
-
-}
-
 void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt by asking user to enter the index(number) of that appt. The numbers will be printed on the screen beside the appointments 
 {
 	if (*size == 0)

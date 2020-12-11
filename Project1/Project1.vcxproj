@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addNewAppt.c" />
     <ClCompile Include="createAppt.c" />
     <ClCompile Include="displaySingleAppt.c" />
     <ClCompile Include="Features.c" />
