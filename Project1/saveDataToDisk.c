@@ -23,7 +23,8 @@ void saveDataToDisk(PAPPOINTMENT apptList[], int* size, char fileName[])
 
 		for (int i = 0; i < *size; i++)
 		{
-			fprintf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
+			fprintf(fp,"[%d]\t%d/%d/%d\n", i, apptList[i]->month, apptList[i]->day, apptList[i]->year);
+			fprintf(fp, "%d:%d - %d:%d\nName: %s\nLocation: %s\nInformation:%s\n\n", apptList[i]->startHour, apptList[i]->startMinutes, apptList[i]->endHour, apptList[i]->endMinutes, apptList[i]->apptName, apptList[i]->location, apptList[i]->body);
 		}
 
 		fclose(fp);

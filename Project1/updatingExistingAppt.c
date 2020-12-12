@@ -17,6 +17,9 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size, PAPPOINTMENT appt)
 		printf("There are no appointments in the list.");
 		return;
 	}
+
+	displayAllAppt(apptList, size);
+
 	do
 	{
 		input = getUserInput("Enter the number of the appointment you wish to update: ");
@@ -54,16 +57,33 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size, PAPPOINTMENT appt)
 				break;
 			case(4):
 				do {
+					printf("Previous year is: %d\n", apptList[input]->year);				//update year
+					printf("Enter a new year time to change previous one.\n");
+					printf("Enter new year:\n");
+					apptList[input]->year = inputTime(MINYEAR, MAXYEAR);
+
+					printf("Previous month is: %d\n", apptList[input]->month);				//update month
+					printf("Enter a new month time to change previous one.\n ");
+					printf("Enter new month:\n");
+					apptList[input]->month = inputTime(MINDATE, MAXMONTH);
+
+					printf("Previous day is: %d\n", apptList[input]->day);				//update day
+					printf("Enter a new day time to change previous one.\n");
+					printf("Enter new day:\n");
+					apptList[input]->day = inputTime(MINDATE, MAXDAY);
+
 					printf("Previous Starting time: %d:%d\n", apptList[input]->startHour, apptList[input]->startMinutes);	//update time
 					printf("Enter a new starting time to change previous one.\n");
 					printf("Enter starting time:\n");
 					apptList[input]->startHour = inputTime(0, 23);
 					apptList[input]->startMinutes = inputTime(0, 59);
+
 					printf("Previous Ending time: %d:%d\n", apptList[input]->endHour, apptList[input]->endMinutes);
 					printf("Enter a new ending time to change previous one.\n");
 					printf("Enter ending time:\n");
 					apptList[input]->endHour = inputTime(0, 23);
 					apptList[input]->endMinutes = inputTime(0, 59);
+
 				} while ((appt->startHour) > (apptList[input]->startHour) && (appt->startHour) < (apptList[input]->endHour) ||
 					(appt->endHour) < (apptList[input]->endHour) && (appt->endHour) > (apptList[input]->startHour) ||
 					(appt->startHour) == (apptList[input]->endHour) && (appt->startMinutes) < (apptList[input]->endMinutes) ||

@@ -30,8 +30,11 @@ void deleteExistingAppt(PAPPOINTMENT list[], int* size)			//We will delete appt 
 	}
 
 	//make the values of satrting hours large so when sort the list, this appt will go to the end of the list
-	list[num]->startHour = 100;
-	list[num]->startMinutes = 100;
+	list[num]->year = MAXYEAR;
+	list[num]-> month= MAXMONTH;
+	list[num]->day = MAXDAY;
+	list[num]->startHour = MAXHOUR;
+	list[num]->startMinutes = MAXHOUR;
 
 	if (num < *size)
 	{

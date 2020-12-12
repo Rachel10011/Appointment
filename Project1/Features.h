@@ -9,14 +9,25 @@
 #pragma once
 #include <stdio.h>
 #include <stdbool.h>
-#define MAXTIME 2 
+#define MAXTIME 100
 #define MAXNAME 51	  
 #define MAXBODY 1000
 #define MAXAPPT 48
 #define MAX_FILENAME 100 
+#define MINTIME 0
+#define MINDATE 1
+#define MINYEAR 2020
+#define MAXDAY 31
+#define MAXHOUR 23
+#define MAXMINUTE 59
+#define MAXMONTH 12
+#define MAXYEAR MINYEAR+4
 
 typedef struct appointment
 {
+	int day;
+	int month;
+	int year;
 	int startHour;
 	int startMinutes;
 	int endHour;
@@ -24,13 +35,10 @@ typedef struct appointment
 	char* apptName;
 	char* location;
 	char* body;
+
 }APPOINTMENT, * PAPPOINTMENT;
 
-typedef struct listappointment
-{
-	PAPPOINTMENT appt;
-	struct listappointment* nextappt;
-}LISTAPPT, * PLISTAPPT;
+
 
 void menu(void);
 

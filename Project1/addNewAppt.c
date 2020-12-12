@@ -10,6 +10,8 @@
 #include <stdbool.h>
 #include "Features.h"
 
+
+
 void addNewAppt(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int* size)
 {
 	for (int i = 0; i < (*size); i++)
@@ -44,12 +46,19 @@ APPOINTMENT createAppt()
 
 	do
 	{
+		puts("Enter day:");
+		newAppt.day = inputTime(MINDATE,MAXDAY);
+		puts("Enter month:");
+		newAppt.month = inputTime(MINDATE, MAXMONTH);
+		puts("Enter year:");
+		newAppt.year = inputTime(MINYEAR, MAXYEAR);
 		puts("Starting time:");
-		newAppt.startHour = inputTime(0, 23);		//ask user to enter the hour of the appointment 
-		newAppt.startMinutes = inputTime(0, 59);	//ask for minutes
+		newAppt.startHour = inputTime(MINTIME, MAXHOUR);		//ask user to enter the hour of the appointment 
+		newAppt.startMinutes = inputTime(MINTIME, MAXMINUTE);	//ask for minutes
 		puts("Ending time:");
-		newAppt.endHour = inputTime(0, 23);
-		newAppt.endMinutes = inputTime(0, 59);
+		newAppt.endHour = inputTime(MINTIME, MAXHOUR);
+		newAppt.endMinutes = inputTime(MINTIME, MAXMINUTE);
+
 		if ((newAppt.startHour > newAppt.endHour || (newAppt.startHour == newAppt.endHour && newAppt.startMinutes > newAppt.endMinutes)))
 		{
 			printf("\nStarting time must be smaller than ending time. Please enter again.\n\n");
@@ -100,10 +109,10 @@ PAPPOINTMENT initialAppointment()
 	{
 		fprintf(stderr, "Error allocating memory!\n");
 	}
-	appt->startHour = 0;
-	appt->startMinutes = 0;
-	appt->endMinutes = 0;
-	appt->endHour = 0;
+	appt->startHour = MINTIME;
+	appt->startMinutes = MINTIME;
+	appt->endMinutes = MINTIME;
+	appt->endHour = MINTIME;
 	appt->apptName = NULL;
 	appt->body = NULL;
 	appt->location = NULL;
@@ -138,6 +147,9 @@ PAPPOINTMENT copyNewAppt(APPOINTMENT newAppt)
 	memset(pCopyAppt->body, 0, strlen(newAppt.body) + 1);
 	strncpy(pCopyAppt->body, newAppt.body, strlen(newAppt.body));
 
+	pCopyAppt->year = newAppt.year;
+	pCopyAppt->month = newAppt.month;
+	pCopyAppt->day = newAppt.day;
 	pCopyAppt->startHour = newAppt.startHour;
 	pCopyAppt->startMinutes = newAppt.startMinutes;
 	pCopyAppt->endHour = newAppt.endHour;
@@ -157,7 +169,7 @@ void addApptToList(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int index)
 
 void sortAppt(PAPPOINTMENT apptList[], int size)
 {
-	if (size = 0)
+	if (size == 0)
 		return;
 
 	for (int i = 0; i < size; i++)
@@ -165,10 +177,11 @@ void sortAppt(PAPPOINTMENT apptList[], int size)
 		for (int j = i + 1; j < size; j++)
 		{
 			PAPPOINTMENT temp;
-
-			if (apptList[i]->startHour > apptList[j]->startHour ||
-				apptList[i]->startHour == apptList[j]->startHour &&
-				apptList[i]->startMinutes > apptList[j]->startMinutes)
+			if (apptList[i]->year > apptList[j]->year ||
+				apptList[i]->year == apptList[j]->year && apptList[i]->month > apptList[j]->month ||
+				apptList[i]->year == apptList[j]->year && apptList[i]->month == apptList[j]->month && apptList[i]->day > apptList[j]->day||
+				apptList[i]->year == apptList[j]->year && apptList[i]->month == apptList[j]->month && apptList[i]->day == apptList[j]->day &&
+				(apptList[i]->startHour > apptList[j]->startHour || apptList[i]->startHour == apptList[j]->startHour && apptList[i]->startMinutes > apptList[j]->startMinutes))
 			{
 				temp = apptList[i];
 				apptList[i] = apptList[j];
@@ -181,7 +194,7 @@ void sortAppt(PAPPOINTMENT apptList[], int size)
 
 void disposeAppt(PAPPOINTMENT appt[], int* size)
 {
-	if ((*size) = 0)
+	if ((*size) == 0)
 		return;
 
 	for (int i = 0; i < *size; i++)

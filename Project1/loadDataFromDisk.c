@@ -34,17 +34,19 @@
 					char* token;
 					//			fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", start_hours, start_minutes, end_hour, end_minutes, name, location, body); //&appointment.startHour, &appointment.startMinutes, &appointment.endHour, &appointment.endMinutes, appointment.apptName, appointment.location, appointment.body);
 
-					fscanf(fp, "%d %d %d %d %s %s %s", start_hours, start_minutes, end_hour, end_minutes, name, location, body); //&appointment.startHour, &appointment.startMinutes, &appointment.endHour, &appointment.endMinutes, appointment.apptName, appointment.location, appointment.body);
+					fscanf(fp, "%d %d %d %d %s %s %s", &appointment.startHour, &appointment.startMinutes, &appointment.endHour, &appointment.endMinutes, appointment.apptName, appointment.location, appointment.body);
 
-					apptList[i]->startHour = start_hours;// appointment.startHour;
-					apptList[i]->startMinutes = start_minutes;//appointment.startMinutes;
-					apptList[i]->endHour = end_hour;//appointment.endHour;
-					apptList[i]->endMinutes = end_minutes;//appointment.endMinutes;
-					strncpy(apptList[i]->apptName, name, MAXNAME);
-					strncpy(apptList[i]->location, location, MAXNAME);
-					strncpy(apptList[i]->body, body, MAXBODY);
-						fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment[i]->startHour, &appointment[i]->startMinutes, &appointment[i]->endHour, &appointment[i]->endMinutes, appointment[i]->apptName, appointment[i]->location, appointment[i]->body);
-					apptList[i] = appointment[i];
+					apptList[i]->startHour = appointment.startHour;
+					apptList[i]->startMinutes = appointment.startMinutes;
+					apptList[i]->endHour = appointment.endHour;
+					apptList[i]->endMinutes =appointment.endMinutes;
+					strncpy(apptList[i]->apptName, appointment.apptName, MAXNAME);
+					strncpy(apptList[i]->location, appointment.location, MAXNAME);
+					strncpy(apptList[i]->body, appointment.body, MAXBODY);
+						
+
+				//	fscanf(fp, "%d:%d - %d:%d \nName: %s\nLocation: %s\nInformation:%s\n\n", &appointment[i]->startHour, &appointment[i]->startMinutes, &appointment[i]->endHour, &appointment[i]->endMinutes, appointment[i]->apptName, appointment[i]->location, appointment[i]->body);
+					//apptList[i] = appointment[i];
 				}
 				fclose(fp);
 				printf("\nLoad Data From File Successfully\n");
