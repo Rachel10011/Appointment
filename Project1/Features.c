@@ -57,21 +57,6 @@ int getUserInput(char message[])
 }
 
 
-int inputTime(int min, int max)
-{
-	int time = 0;
-	char buffer[MAXTIME];
-
-	do {
-		printf("Please enter a number between %d and %d:", min, max);
-		time = getUserInput("");
-		if (time<min || time>max)
-			puts("Invalid input! Please try again.");
-	} while (time<min || time>max);									//if the user's input is not inthe range of time, ask for another input
-
-	return time;		
-}
-
 void askForFilePath(char fileName[])
 {
 	FILE* fp;

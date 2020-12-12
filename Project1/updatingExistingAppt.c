@@ -2,14 +2,14 @@
 #include <stdbool.h>
 #include "Features.h"
 
-void updateExistingAppt(PAPPOINTMENT apptList[], int* size, PAPPOINTMENT appt)
+void updateExistingAppt(PAPPOINTMENT apptList[], int* size)
 {
 	char name_Update[MAXNAME];
 	char location_Update[MAXNAME];
 	char body_Update[MAXBODY];
 	int input;
 	char scannedInput;
-
+	bool repeatTask4;
 	bool repeat;
 
 	if (*size == 0)
@@ -84,14 +84,25 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size, PAPPOINTMENT appt)
 					apptList[input]->endHour = inputTime(0, 23);
 					apptList[input]->endMinutes = inputTime(0, 59);
 
-				} while (apptList[input]->year > appt[input]->year ||
-					apptList[input]->year == appt[input]->year && apptList[input]->month > appt[input]->month ||
-					apptList[input]->year == appt[input]->year && apptList[input]->month == appt[input]->month && apptList[input]->day > apptList[input + NEXT_YEAR]->day ||
-					apptList[input]->year == apptList[input]->year && apptList[input]->month == appt[input]->month && apptList[input]->day == appt[input]->day &&
-					apptList[input]->startHour > appt[input]->startHour || apptList[input]->startHour == appt[input]->startHour && apptList[input]->startMinutes > appt[input]->startMinutes)(appt->startHour) > (apptList[input]->startHour) && (appt->startHour) < (apptList[input]->endHour) ||
-					(appt->endHour) < (apptList[input]->endHour) && (appt->endHour) > (apptList[input]->startHour) ||
-					(appt->startHour) == (apptList[input]->endHour) && (appt->startMinutes) < (apptList[input]->endMinutes) ||
-					(appt->endHour) == (apptList[input]->startHour) && (appt->endMinutes) > (apptList[input]->startMinutes));
+					for (int i = 0; i <= *size; i++)
+					{
+						if ((apptList[input]->year == apptList[i]->year &&				//check if the updated appointment is overlaped or not
+							apptList[input]->month == apptList[i]->month &&
+							apptList[input]->day == apptList[i]->day) &&
+							((apptList[input]->startHour) > (apptList[i]->startHour) && (apptList[input]->startHour) < (apptList[i]->endHour) ||
+							(apptList[input]->endHour) < (apptList[i]->endHour) && (apptList[input]->endHour) > (apptList[i]->startHour) ||
+							(apptList[input]->startHour) == (apptList[i]->endHour) && (apptList[input]->startMinutes) < (apptList[i]->endMinutes) ||
+							(apptList[input]->endHour) == (apptList[i]->startHour) && (apptList[input]->endMinutes) > (apptList[i]->startMinutes)))
+						{
+							printf("Updated appointments cannot be booked because of overlap time. Try again.\n");
+							repeatTask4 = true;
+						}
+						else
+							repeatTask4 = false;
+					}
+	
+
+				} while (repeatTask4);
 		
 					printf("Time updated.\n");
 					break;

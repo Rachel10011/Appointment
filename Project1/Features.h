@@ -59,7 +59,7 @@ void saveDataToDisk(PAPPOINTMENT[], int*, char[]);
 
 
 //By Dominic Pham
-void updateExistingAppt(PAPPOINTMENT[], int*, PAPPOINTMENT);
+void updateExistingAppt(PAPPOINTMENT[], int*);
 void displaySingleAppt(PAPPOINTMENT[],int*);
 void searchForAppt(PAPPOINTMENT[], int*);
 

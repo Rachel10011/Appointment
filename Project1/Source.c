@@ -13,7 +13,7 @@ int main(void)
 {
 	PAPPOINTMENT apptList[MAXAPPT] = { 0 };
 	APPOINTMENT newAppt;
-	bool repeat = true;
+	bool repeat=true;
 	char selection;
 	char fileName[MAX_FILENAME] = { 0 };
 	int size = 0; 
@@ -31,43 +31,42 @@ int main(void)
 		case (1):
 			newAppt = createAppt();
 			addNewAppt(apptList, copyNewAppt(newAppt), &size);
-			break;
+			continue;
 		case (2):
 			deleteExistingAppt(apptList, &size);
-			break;
+			continue;
 		case (3):
-			updateExistingAppt(apptList, &size, copyNewAppt(newAppt));
+			updateExistingAppt(apptList, &size);
 			continue;
 		case (4):
 			displaySingleAppt(apptList,&size);
 			continue;
 		case (5):
 			displayRangeAppt(apptList,&size);
-			break;
+			continue;
 		case (7):
 			searchForAppt(apptList,&size);
-			continue;	
+			continue;
 		case (6):
 			displayAllAppt(apptList, &size);
-			break;
+			continue;
 		case(8):
 			askForFilePath(fileName);
 			saveDataToDisk(apptList, &size, fileName);
-			break;
+			continue;
 		case (9):
 			askForFilePath(fileName);
 			loadDataFromDisk(apptList, &size, fileName);
-			break;
+			continue;
 		case (10):
 			repeat = false;
 			break;
 		default:
 			puts("Invalid input! Please try again\n");
-			break;
+			continue;
 		}
 	}
-
-	disposeAppt(apptList,&size);
+	printf("Thank you!\n");
 
 	return 0;
 }

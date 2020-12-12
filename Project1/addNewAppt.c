@@ -10,7 +10,20 @@
 #include <stdbool.h>
 #include "Features.h"
 
+int inputTime(int min, int max)
+{
+	int time = 0;
+	char buffer[MAXTIME];
 
+	do {
+		printf("Please enter a number between %d and %d:", min, max);
+		time = getUserInput("");
+		if (time<min || time>max)
+			puts("Invalid input! Please try again.");
+	} while (time<min || time>max);									//if the user's input is not inthe range of time, ask for another input
+
+	return time;
+}
 
 void addNewAppt(PAPPOINTMENT apptList[], PAPPOINTMENT appt, int* size)
 {
@@ -172,7 +185,7 @@ void sortAppt(PAPPOINTMENT apptList[], int size)
 	if (size == 0)
 		return;
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size-1; i++)
 	{
 		for (int j = i + 1; j < size; j++)
 		{
