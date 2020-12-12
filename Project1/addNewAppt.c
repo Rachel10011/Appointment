@@ -69,7 +69,7 @@ APPOINTMENT createAppt()
 
 	} while (repeat);
 
-	printf("Enter appoinments name: ");
+	printf("Enter appointments name: ");
 	fgets(name, MAXNAME, stdin);
 	printf("Enter location: ");
 	fgets(location, MAXNAME, stdin);
