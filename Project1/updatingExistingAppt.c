@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "Features.h"
-#define NEXT_YEAR 1
 
 void updateExistingAppt(PAPPOINTMENT apptList[], int* size, PAPPOINTMENT appt)
 {
@@ -85,11 +84,11 @@ void updateExistingAppt(PAPPOINTMENT apptList[], int* size, PAPPOINTMENT appt)
 					apptList[input]->endHour = inputTime(0, 23);
 					apptList[input]->endMinutes = inputTime(0, 59);
 
-				} while (apptList[input]->year > apptList[input+NEXT_YEAR]->year ||
-					apptList[input]->year == apptList[input + NEXT_YEAR]->year && apptList[input]->month > apptList[input + NEXT_YEAR]->month ||
-					apptList[input]->year == apptList[input + NEXT_YEAR]->year && apptList[input]->month == apptList[input + NEXT_YEAR]->month && apptList[input]->day > apptList[input + NEXT_YEAR]->day ||
-					apptList[input]->year == apptList[input + NEXT_YEAR]->year && apptList[input]->month == apptList[input + NEXT_YEAR]->month && apptList[input]->day == apptList[input + NEXT_YEAR]->day &&
-					apptList[input]->startHour > apptList[input + NEXT_YEAR]->startHour || apptList[input]->startHour == apptList[input + NEXT_YEAR]->startHour && apptList[input]->startMinutes > apptList[input + NEXT_YEAR]->startMinutes)(appt->startHour) > (apptList[input]->startHour) && (appt->startHour) < (apptList[input]->endHour) ||
+				} while (apptList[input]->year > appt[input]->year ||
+					apptList[input]->year == appt[input]->year && apptList[input]->month > appt[input]->month ||
+					apptList[input]->year == appt[input]->year && apptList[input]->month == appt[input]->month && apptList[input]->day > apptList[input + NEXT_YEAR]->day ||
+					apptList[input]->year == apptList[input]->year && apptList[input]->month == appt[input]->month && apptList[input]->day == appt[input]->day &&
+					apptList[input]->startHour > appt[input]->startHour || apptList[input]->startHour == appt[input]->startHour && apptList[input]->startMinutes > appt[input]->startMinutes)(appt->startHour) > (apptList[input]->startHour) && (appt->startHour) < (apptList[input]->endHour) ||
 					(appt->endHour) < (apptList[input]->endHour) && (appt->endHour) > (apptList[input]->startHour) ||
 					(appt->startHour) == (apptList[input]->endHour) && (appt->startMinutes) < (apptList[input]->endMinutes) ||
 					(appt->endHour) == (apptList[input]->startHour) && (appt->endMinutes) > (apptList[input]->startMinutes));
